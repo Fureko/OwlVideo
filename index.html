@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title>Hazbin Hotel</title>
+  <style>
+    #EP1VF {display: none;}
+    #EP2VF {display: none;}
+    #EP3VF {display: none;}
+    #EP4VF {display: none;}
+    body {
+      background-image: url(https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/1f419759-ecd4-4693-9d22-0536130825fe/ddpaj11-f960cc38-6c87-4265-9eab-368851c04604.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzFmNDE5NzU5LWVjZDQtNDY5My05ZDIyLTA1MzYxMzA4MjVmZVwvZGRwYWoxMS1mOTYwY2MzOC02Yzg3LTQyNjUtOWVahYi0zNjg4NTFjMDQ2MDQucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0._f0ZOsh5vgKo7tjq-EoKKGel_VLLI4Dqr2Q4aqKod4Y);
+      background-size: cover;
+    }
+  </style>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js"></script>
+</head>
+<body>
+  <h1 style="font-family:sans-serif; font-size: 78px; color: #9D44C0; text-align: center">HAZBIN HOTEL</h1>
+  <hr style="border-color: #0E21A0; border-width: 3px">
+  <br>
+  <h2>
+    <!-- Bouton qui fait apparaître la vidéo -->
+    <button onclick="afficherVideo1()">Épisode 1 VF</button>
+    <!-- Élément vidéo caché par défaut -->
+    <video id="EP1VF" width="640" height="360" controls>
+      <source src="https://www.youtube.com/watch?v=1ldFvs88nvE" type="video/mp4">
+      Votre navigateur ne prend pas en charge la balise vidéo.
+    </video>
+      
+    <!-- Bouton qui fait apparaître la vidéo -->
+    <button onclick="afficherVideo2()">Épisode 2 VF</button>
+    <!-- Élément vidéo caché par défaut -->
+    <video id="EP2VF" width="640" height="360" controls>
+      <source src="lien_de_votre_video.mp4" type="video/mp4">
+      Votre navigateur ne prend pas en charge la balise vidéo.
+    </video>
+
+    <!-- Bouton qui fait apparaître la vidéo -->
+    <button onclick="afficherVideo3()">Épisode 3 VF</button>
+    <!-- Élément vidéo caché par défaut -->
+    <video id="EP3VF" width="640" height="360" controls>
+      <source src="lien_de_votre_video.mp4" type="video/mp4">
+      Votre navigateur ne prend pas en charge la balise vidéo.
+    </video>
+
+    <!-- Bouton qui fait apparaître la vidéo -->
+    <button onclick="afficherVideo4()">Épisode 4 VF</button>
+    <!-- Élément vidéo caché par défaut -->
+    <video id="EP4VF" width="640" height="360" controls>
+      <source src="https://www.youtube.com/watch?v=coxBs9Iz16s" type="video/mp4">
+      Votre navigateur ne prend pas en charge la balise vidéo.
+    </video>
+  </h2>
+    
+  <script>
+    function afficherVideo1() {
+      // Obtenez l'élément vidéo
+      var video = document.getElementById("EP1VF");
+      // Changez la visibilité de la vidéo
+      video.style.display = "block";
+    }
+
+    function afficherVideo2() {
+      // Obtenez l'élément vidéo
+      var video = document.getElementById("EP2VF");
+      // Changez la visibilité de la vidéo
+      video.style.display = "block";
+    }
+
+    function afficherVideo3() {
+      // Obtenez l'élément vidéo
+      var video = document.getElementById("EP3VF");
+      // Changez la visibilité de la vidéo
+      video.style.display = "block";
+    }
+
+    function afficherVideo4() {
+      // Obtenez l'élément vidéo
+      var video = document.getElementById("EP4VF");
+      // Changez la visibilité de la vidéo
+      video.style.display = "block";
+    }
+  </script>
+</body>
+</html>
