@@ -4,83 +4,66 @@
   <meta charset="utf-8">
   <title>Hazbin Hotel</title>
   <style>
-    #EP1VF {display: none;}
-    #EP2VF {display: none;}
-    #EP3VF {display: none;}
-    #EP4VF {display: none;}
     body {
-      background-image: url(https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/1f419759-ecd4-4693-9d22-0536130825fe/ddpaj11-f960cc38-6c87-4265-9eab-368851c04604.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzFmNDE5NzU5LWVjZDQtNDY5My05ZDIyLTA1MzYxMzA4MjVmZVwvZGRwYWoxMS1mOTYwY2MzOC02Yzg3LTQyNjUtOWVahYi0zNjg4NTFjMDQ2MDQucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0._f0ZOsh5vgKo7tjq-EoKKGel_VLLI4Dqr2Q4aqKod4Y);
+      background-image: url(https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/1f419759-ecd4-4693-9d22-0536130825fe/ddpaj11-f960cc38-6c87-4265-9eab-368851c04604.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzFmNDE5NzU5LWVjZDQtNDY5My05ZDIyLTA1MzYxMzA4MjVmZVwvZGRwYWoxMS1mOTYwY2MzOC02Yzg3LTQyNjUtOWVhYi0zNjg4NTFjMDQ2MDQucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0._f0ZOsh5vgKo7tjq-EoKKGel_VLLI4Dqr2Q4aqKod4Y);
       background-size: cover;
+      text-align: center; /* Pour centrer le bouton */
+    }
+
+    h1 {
+      font-family: sans-serif;
+      font-size: 78px;
+      color: #9D44C0;
+      margin-top: 20px; /* Ajout de la marge au-dessus du titre */
+    }
+
+    hr {
+      border-color: #0E21A0;
+      border-width: 3px;
+    }
+
+    button {
+      margin: 10px; /* Ajout de marge entre les boutons */
     }
   </style>
   <link rel="stylesheet" href="style.css">
   <script src="script.js"></script>
 </head>
 <body>
-  <h1 style="font-family:sans-serif; font-size: 78px; color: #9D44C0; text-align: center">HAZBIN HOTEL</h1>
-  <hr style="border-color: #0E21A0; border-width: 3px">
+  <h1>HAZBIN HOTEL</h1>
+  <hr>
   <br>
   <h2>
     <!-- Bouton qui fait apparaître la vidéo -->
-    <button onclick="afficherVideo1()">Épisode 1 VF</button>
-    <!-- Élément vidéo caché par défaut -->
-    <video id="EP1VF" width="640" height="360" controls>
-      <source src="https://www.youtube.com/watch?v=1ldFvs88nvE" type="video/mp4">
-      Votre navigateur ne prend pas en charge la balise vidéo.
-    </video>
-      
+    <button onclick="afficherVideo('https://www.youtube.com/watch?v=1ldFvs88nvE')" style="background-color:#0e21a0;border-radius:28px;border:1px solid #4d2db7;display:inline-block;cursor:pointer;color:#ec53af;font-family:Trebuchet MS;font-size:17px;padding:16px 31px;text-decoration:none;text-shadow:0px 1px 0px #521e3e;">Épisode 1 VF</button>
     <!-- Bouton qui fait apparaître la vidéo -->
-    <button onclick="afficherVideo2()">Épisode 2 VF</button>
-    <!-- Élément vidéo caché par défaut -->
-    <video id="EP2VF" width="640" height="360" controls>
-      <source src="lien_de_votre_video.mp4" type="video/mp4">
-      Votre navigateur ne prend pas en charge la balise vidéo.
-    </video>
-
+    <button onclick="afficherVideo('lien_de_votre_video2.mp4')" style="background-color:#0e21a0;border-radius:28px;border:1px solid #4d2db7;display:inline-block;cursor:pointer;color:#ec53af;font-family:Trebuchet MS;font-size:17px;padding:16px 31px;text-decoration:none;text-shadow:0px 1px 0px #521e3e;">Épisode 2 VF</button>
     <!-- Bouton qui fait apparaître la vidéo -->
-    <button onclick="afficherVideo3()">Épisode 3 VF</button>
-    <!-- Élément vidéo caché par défaut -->
-    <video id="EP3VF" width="640" height="360" controls>
-      <source src="lien_de_votre_video.mp4" type="video/mp4">
-      Votre navigateur ne prend pas en charge la balise vidéo.
-    </video>
-
+    <button onclick="afficherVideo('lien_de_votre_video3.mp4')" style="background-color:#0e21a0;border-radius:28px;border:1px solid #4d2db7;display:inline-block;cursor:pointer;color:#ec53af;font-family:Trebuchet MS;font-size:17px;padding:16px 31px;text-decoration:none;text-shadow:0px 1px 0px #521e3e;">Épisode 3 VF</button>
     <!-- Bouton qui fait apparaître la vidéo -->
-    <button onclick="afficherVideo4()">Épisode 4 VF</button>
-    <!-- Élément vidéo caché par défaut -->
-    <video id="EP4VF" width="640" height="360" controls>
-      <source src="https://www.youtube.com/watch?v=coxBs9Iz16s" type="video/mp4">
-      Votre navigateur ne prend pas en charge la balise vidéo.
-    </video>
+    <button onclick="afficherVideo('https://www.youtube.com/watch?v=coxBs9Iz16s')" style="background-color:#0e21a0;border-radius:28px;border:1px solid #4d2db7;display:inline-block;cursor:pointer;color:#ec53af;font-family:Trebuchet MS;font-size:17px;padding:16px 31px;text-decoration:none;text-shadow:0px 1px 0px #521e3e;">Épisode 4 VF</button>
   </h2>
-    
+
+  <!-- Élément vidéo caché par défaut -->
+  <video id="videoPlayer" width="640" height="360" controls>
+    <source id="videoSource" type="video/mp4">
+    Votre navigateur ne prend pas en charge la balise vidéo.
+  </video>
+
   <script>
-    function afficherVideo1() {
-      // Obtenez l'élément vidéo
-      var video = document.getElementById("EP1VF");
-      // Changez la visibilité de la vidéo
-      video.style.display = "block";
-    }
+    function afficherVideo(source) {
+      // Obtenez l'élément vidéo et sa source
+      var videoPlayer = document.getElementById("videoPlayer");
+      var videoSource = document.getElementById("videoSource");
 
-    function afficherVideo2() {
-      // Obtenez l'élément vidéo
-      var video = document.getElementById("EP2VF");
-      // Changez la visibilité de la vidéo
-      video.style.display = "block";
-    }
+      // Changez la source de la vidéo
+      videoSource.src = source;
 
-    function afficherVideo3() {
-      // Obtenez l'élément vidéo
-      var video = document.getElementById("EP3VF");
-      // Changez la visibilité de la vidéo
-      video.style.display = "block";
-    }
+      // Chargez la nouvelle source
+      videoPlayer.load();
 
-    function afficherVideo4() {
-      // Obtenez l'élément vidéo
-      var video = document.getElementById("EP4VF");
       // Changez la visibilité de la vidéo
-      video.style.display = "block";
+      videoPlayer.style.display = "block";
     }
   </script>
 </body>
