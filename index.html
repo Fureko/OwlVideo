@@ -5,7 +5,7 @@
   <title>Hazbin Hotel</title>
   <style>
     body {
-      background-image: url(https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/1f419759-ecd4-4693-9d22-0536130825fe/ddpaj11-f960cc38-6c87-4265-9eab-368851c04604.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzFmNDE5NzU5LWVjZDQtNDY5My05ZDIyLTA1MzYxMzA4MjVmZVwvZGRwYWoxMS1mOTYwY2MzOC02Yzg3LTQyNjUtOWVhYi0zNjg4NTFjMDQ2MDQucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0._f0ZOsh5vgKo7tjq-EoKKGel_VLLI4Dqr2Q4aqKod4Y);
+      background-image: url(https://static.wikia.nocookie.net/125ed3fe-a671-4856-a4d6-2829a97fd2dd/scale-to-width/755);
       background-size: cover;
       text-align: center; /* Pour centrer le bouton */
     }
@@ -24,6 +24,17 @@
 
     button {
       margin: 10px; /* Ajout de marge entre les boutons */
+      background-color:#0e21a0;
+      border-radius:28px;
+      border:1px solid #4d2db7;
+      display:inline-block;
+      cursor:pointer;
+      color:#ec53af;
+      font-family:Trebuchet MS;
+      font-size:17px;
+      padding:16px 31px;
+      text-decoration:none;
+      text-shadow:0px 1px 0px #521e3e;
     }
   </style>
   <link rel="stylesheet" href="style.css">
@@ -34,37 +45,71 @@
   <hr>
   <br>
   <h2>
-    <!-- Bouton qui fait apparaître la vidéo -->
-    <button onclick="afficherVideo('https://www.youtube.com/watch?v=1ldFvs88nvE')" style="background-color:#0e21a0;border-radius:28px;border:1px solid #4d2db7;display:inline-block;cursor:pointer;color:#ec53af;font-family:Trebuchet MS;font-size:17px;padding:16px 31px;text-decoration:none;text-shadow:0px 1px 0px #521e3e;">Épisode 1 VF</button>
-    <!-- Bouton qui fait apparaître la vidéo -->
-    <button onclick="afficherVideo('lien_de_votre_video2.mp4')" style="background-color:#0e21a0;border-radius:28px;border:1px solid #4d2db7;display:inline-block;cursor:pointer;color:#ec53af;font-family:Trebuchet MS;font-size:17px;padding:16px 31px;text-decoration:none;text-shadow:0px 1px 0px #521e3e;">Épisode 2 VF</button>
-    <!-- Bouton qui fait apparaître la vidéo -->
-    <button onclick="afficherVideo('lien_de_votre_video3.mp4')" style="background-color:#0e21a0;border-radius:28px;border:1px solid #4d2db7;display:inline-block;cursor:pointer;color:#ec53af;font-family:Trebuchet MS;font-size:17px;padding:16px 31px;text-decoration:none;text-shadow:0px 1px 0px #521e3e;">Épisode 3 VF</button>
-    <!-- Bouton qui fait apparaître la vidéo -->
-    <button onclick="afficherVideo('https://www.youtube.com/watch?v=coxBs9Iz16s')" style="background-color:#0e21a0;border-radius:28px;border:1px solid #4d2db7;display:inline-block;cursor:pointer;color:#ec53af;font-family:Trebuchet MS;font-size:17px;padding:16px 31px;text-decoration:none;text-shadow:0px 1px 0px #521e3e;">Épisode 4 VF</button>
+    <!-- Bouton qui change les liens des vidéos Odysee -->
+    <button onclick="changerLiensVideos()">
+      Changer la langue [VF/VOSTFR]
+    </button>
+    <!-- Bouton qui fait apparaître la vidéo Odysee 1 -->
+    <button onclick="afficherVideoOdysee(1)">
+      Épisode 1
+    </button>
+    <!-- Bouton qui fait apparaître la vidéo Odysee 2 -->
+    <button onclick="afficherVideoOdysee(2)">
+      Épisode 2
+    </button>
+    <!-- Bouton qui fait apparaître la vidéo Odysee 3 -->
+    <button onclick="afficherVideoOdysee(3)">
+      Épisode 3
+    </button>
+    <!-- Bouton qui fait apparaître la vidéo Odysee 4 -->
+    <button onclick="afficherVideoOdysee(4)">
+      Épisode 4
+    </button>
   </h2>
 
-  <!-- Élément vidéo caché par défaut -->
-  <video id="videoPlayer" width="640" height="360" controls>
-    <source id="videoSource" type="video/mp4">
-    Votre navigateur ne prend pas en charge la balise vidéo.
-  </video>
+  <!-- Élément vidéo Odysee caché par défaut -->
+  <iframe id="odysee-iframe" width="560" height="315" allowfullscreen></iframe>
 
   <script>
-    function afficherVideo(source) {
-      // Obtenez l'élément vidéo et sa source
-      var videoPlayer = document.getElementById("videoPlayer");
-      var videoSource = document.getElementById("videoSource");
+    // Liens originaux
+    var odyseeLiensOriginaux = {
+        1: 'https://odysee.com/$/embed/@furekoereki:1/EP1VF:3?r=kV3B7uYkt2RdtGQKRCqP1eJs8YdTA1ud&signature=901cc142367779ac9c3060aab6a0db94739872ed183ceea6d2aecc7dc42e0fe87214b31c4059e6b7c2ac5c1a5e2d8f279c156145ea428ed3b7fbeb0083229938&signature_ts=1705675248',
+        2: 'https://odysee.com/$/embed/@furekoereki:1/EP2VF:6?r=kV3B7uYkt2RdtGQKRCqP1eJs8YdTA1ud&signature=5208c6420b6d9b2e3c042af7d70e9849a7c56ab497fcdd42798373d2c61d0af2334f9516fd288eb41e057a9c5f7314f5e5ee1c2971df3a855fe260bc7ac74485&signature_ts=1705675353',
+        3: 'https://odysee.com/$/embed/@furekoereki:1/EP3VF:1?r=kV3B7uYkt2RdtGQKRCqP1eJs8YdTA1ud&signature=b99c149537ce59da1f5114504ece968673b0653ce1085b2ceef9b6e4f473e4fb0410f0300723b109f5734a3387bde7710a0cf236a23858a96a0b46d601aa4fb4&signature_ts=1705675373',
+        4: 'https://odysee.com/$/embed/@furekoereki:1/EP4VF:9?r=kV3B7uYkt2RdtGQKRCqP1eJs8YdTA1ud&signature=df4c60169fa08b65a3f765ae884a3cb59809704aa2169ef69d72b083562815ff740e9c84a7cbdc210a134eaa99910684210fcf7154b9a878b219ff5649b76c67&signature_ts=1705675980'
+    };
 
-      // Changez la source de la vidéo
-      videoSource.src = source;
+    // Nouveaux liens
+    var odyseeLiensNouveaux = {
+      1: 'https://odysee.com/$/embed/@hazbinhotel:1/nouveau-episode1?key=qrst5678',
+      2: 'https://odysee.com/$/embed/@hazbinhotel:1/nouveau-episode2?key=uvwx9012',
+      3: 'https://odysee.com/$/embed/@hazbinhotel:1/nouveau-episode3?key=yzab3456',
+      4: 'https://odysee.com/$/embed/@hazbinhotel:1/nouveau-episode4?key=cdef6789'
+    };
 
-      // Chargez la nouvelle source
-      videoPlayer.load();
+    // Liens actuels
+    var odyseeLiensActuels = odyseeLiensOriginaux;
 
-      // Changez la visibilité de la vidéo
-      videoPlayer.style.display = "block";
+    function afficherVideoOdysee(episodeNumber) {
+      var lien = odyseeLiensActuels[episodeNumber];
+      
+      // Obtenez l'élément iframe
+      var odyseeIframe = document.getElementById("odysee-iframe");
+
+      // Changez la source de la vidéo Odysee
+      odyseeIframe.src = lien;
+
+      // Changez la visibilité de la vidéo Odysee
+      odyseeIframe.style.display = "block";
     }
-  </script>
+
+    function changerLiensVideos() {
+      // Basculez entre les liens originaux et les liens actuels
+      odyseeLiensActuels = (odyseeLiensActuels === odyseeLiensOriginaux) ? odyseeLiensNouveaux : odyseeLiensOriginaux;
+
+      // Rafraîchissez la vidéo affichée
+      afficherVideoOdysee(1);
+    }
+</script>
 </body>
 </html>
