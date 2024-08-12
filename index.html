@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hazbin Hotel</title>
+    <link rel="stylesheet" href="https://cdn.vidstack.io/player.css" />
+    <link rel="stylesheet" href="https://cdn.vidstack.io/plyr.css" />
     <link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
@@ -32,10 +34,10 @@
             font-size: 30px;
         }
 
-        h1 {
+        .logo {
+            width: 500px; /* Augmentez cette valeur pour rendre le logo plus grand */
+            height: auto; /* Maintient les proportions de l'image */
             margin-bottom: 20px;
-            color: #C73659;
-            font-size: 2em;
         }
 
         .controls {
@@ -60,20 +62,14 @@
 
         .video-container {
             position: relative;
-            margin-top: 20px;
-        }
-
-        .video-container iframe {
-            width: 100%;
-            height: 500px; /* Ajustez la hauteur selon vos besoins */
-            border: none;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="content-box">
-            <h1>Hazbin Hotel</h1>
+            <!-- Remplacez le titre par le logo -->
+            <img src="Hazbin-Hotel-Logo.png" alt="Hazbin Hotel Logo" class="logo">
             <div class="controls">
                 <select id="episode-select">
                     <option value="1">Épisode 1</option>
@@ -88,35 +84,23 @@
                 <button id="toggle-version">Changer en VOSTFR</button>
             </div>
 
-            <div class="video-container">
-                <iframe id="video-frame" src="" allowfullscreen></iframe>
-            </div>
+            <!-- Cible pour Vidstack -->
+            <div id="video-target"></div>
         </div>
     </div>
 
-    <script>
+    <script type="module">
+        import { PlyrLayout, VidstackPlayer } from 'https://cdn.vidstack.io/player';
+
         const videoPaths = {
-            VF: {
-      1: 'https://mega.nz/embed/v9NjgICZ#J6O_WROspZ2DvlidOjP7bhtk4zwjfKLfGfUIqjgN90k',
-      2: 'https://mega.nz/embed/S0UUCbpb#m5e_zDvbJ4MlZs9-2pr8wxriT9CaMEs-_Xv7micl9dk',
-      3: 'https://mega.nz/embed/K1VT1JhA#arNgJVu0eJgLBpoOXeWURk95PIZD513DcUkOSGhAPFE',
-      4: 'https://mega.nz/embed/L90hwZTI#kYH1_lOftW6HF7PmTjAO4OfN2d1ZJbEFENG1U2kd0ec',
-      5: 'https://mega.nz/embed/fodjyKrK#u6H5Rn7eTZL5XedfypkxjZ6Pud22GJFk_gt9BPwqQa0',
-      6: 'https://mega.nz/embed/TkEwSBaJ#4Mnkbi4MbSDHaSAkue89ahzmLHMlJD0sb4X7NSJy-oI',
-      7: 'https://mega.nz/embed/T9E1TYyT#hzU5XQ2SQJg_sWod7XrnJ5RG8EKUXzFWGt8LGvnFZVg',
-      8: 'https://mega.nz/embed/74FmyQib#-XPGAnppN761wdR4MLZwMoZWPREuZGtWaMXq1UG5V14'
-                // Ajoutez les autres épisodes
-            },
-            VOSTFR: {
-      1: 'https://mega.nz/embed/K5k3RZjA#8ErBT4dpyLXcqrXhb_g3hkwYvuj1xeW-3Vs6EFGv6-g',
-      2: 'https://mega.nz/embed/y11hiB6Z#Vravv33jk20dcticXBxHeKJOx8DxHOCM0jqLy-EhpO0',
-      3: 'https://mega.nz/embed/H1skwRDZ#Lj7Sbgb2J3vZvUPyEZzBqN48UHkLUdtS6HyKxO13VRw',
-      4: 'https://mega.nz/embed/iht03RYR#Jc7-Hp2MdecE-a16mYXFEAd3hlPmWD631uV5d6bGx-U',
-      5: 'https://mega.nz/embed/i8FB1RhZ#-XR1Nbl2bP1JPcNvnUlhBvDb29qtRVtVQSQb3ljUbe4',
-      6: 'https://mega.nz/embed/P4VFmSzB#1Ooa9jB_Xx7JE7Xfby_P8QMem3TELj61Z5k3hhEATsY',
-      7: 'https://mega.nz/embed/z9tHwTqa#4vnW9Oxwn5EK9UrXRjXJ1LtYY7T3yTr5gKMU1PMR7ao',
-      8: 'https://mega.nz/embed/X0Mn2K7C#4PB9kWN7uKl1vtRgfANhJFrIkevdM7kUb81ULu4B4ZU'
-            }
+            1: { VF: 'https://mediacdn.cincopa.com/v2/1177015/10!dP_FAAAAAAgYNB/0/ep1_VF.mp4', VOSTFR: 'https://mediacdn.cincopa.com/v2/1177015/8!dP_FAAAAAAAi9A/0/ep1_VOSTFR.mp4' },
+            2: { VF: 'https://mediacdn.cincopa.com/v2/1177015/11!dP_FAAAAAAwzTB/0/ep2_VF.mp4', VOSTFR: 'https://mediacdn.cincopa.com/v2/1177015/1!dP_FAAAAAAwNlB/0/ep2_VOSTFR.mp4' },
+            3: { VF: 'https://mediacdn.cincopa.com/v2/1177015/12!dP_FAAAAAAAIgD/0/ep3_VF.mp4', VOSTFR: 'https://mediacdn.cincopa.com/v2/1177015/2!dP_FAAAAAAgmfA/0/ep3_VOSTFR.mp4' },
+            4: { VF: 'https://mediacdn.cincopa.com/v2/1177015/13!dP_FAAAAAAgizD/0/ep4_VF.mp4', VOSTFR: 'https://mediacdn.cincopa.com/v2/1177015/3!dP_FAAAAAAAGQB/0/ep4_VOSTFR.mp4' },
+            5: { VF: 'https://mediacdn.cincopa.com/v2/1177015/14!dP_FAAAAAAApGB/0/ep5_VF.mp4', VOSTFR: 'https://mediacdn.cincopa.com/v2/1177015/4!dP_FAAAAAAQdzD/0/ep5_VOSTFR.mp4' },
+            6: { VF: 'https://mediacdn.cincopa.com/v2/1177015/15!dP_FAAAAAAQ0zB/0/ep6_VF.mp4', VOSTFR: 'https://mediacdn.cincopa.com/v2/1177015/5!dP_FAAAAAAgoDD/0/ep6_VOSTFR.mp4' },
+            7: { VF: 'https://mediacdn.cincopa.com/v2/1177015/16!dP_FAAAAAAgEiD/0/ep7_VF.mp4', VOSTFR: 'https://mediacdn.cincopa.com/v2/1177015/6!dP_FAAAAAAAgDC/0/ep7_VOSTFR.mp4' },
+            8: { VF: 'https://mediacdn.cincopa.com/v2/1177015/9!dP_FAAAAAAQpIA/0/ep8_VF.mp4', VOSTFR: 'https://mediacdn.cincopa.com/v2/1177015/7!dP_FAAAAAAAQLA/0/ep8_VOSTFR.mp4' }
         };
 
         let currentEpisode = 1;
@@ -124,23 +108,38 @@
 
         const episodeSelect = document.getElementById('episode-select');
         const toggleVersionButton = document.getElementById('toggle-version');
-        const videoFrame = document.getElementById('video-frame');
 
-        function updateVideo() {
-            videoFrame.src = videoPaths[currentLanguage][currentEpisode];
+        async function createPlayer(src) {
+            const target = document.getElementById('video-target');
+            
+            // Vider le contenu existant
+            target.innerHTML = '';
+
+            // Créer un nouveau lecteur avec VidstackPlayer et PlyrLayout
+            await VidstackPlayer.create({
+                target: '#video-target',
+                title: `Hazbin Hotel - Episode ${currentEpisode} (${currentLanguage})`,
+                src: src,
+                layout: new PlyrLayout({
+                    thumbnails: '', // Vous pouvez ajouter des miniatures si vous en avez
+                }),
+            });
         }
 
-        updateVideo();
+        // Initialisation du lecteur pour le premier épisode VF
+        createPlayer(videoPaths[currentEpisode][currentLanguage]);
 
+        // Changer d'épisode
         episodeSelect.addEventListener('change', () => {
             currentEpisode = episodeSelect.value;
-            updateVideo();
+            createPlayer(videoPaths[currentEpisode][currentLanguage]);
         });
 
+        // Changer de version (VF / VOSTFR)
         toggleVersionButton.addEventListener('click', () => {
             currentLanguage = currentLanguage === 'VF' ? 'VOSTFR' : 'VF';
             toggleVersionButton.textContent = currentLanguage === 'VF' ? 'Changer en VOSTFR' : 'Changer en VF';
-            updateVideo();
+            createPlayer(videoPaths[currentEpisode][currentLanguage]);
         });
     </script>
 </body>
