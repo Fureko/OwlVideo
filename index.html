@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hazbin Hotel</title>
+    <link rel="stylesheet" href="https://cdn.vidstack.io/player.css" />
+    <link rel="stylesheet" href="https://cdn.vidstack.io/plyr.css" />
     <link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
@@ -30,12 +32,13 @@
             width: 100%;
             text-align: center;
             font-size: 30px;
+            box-sizing: border-box;
         }
 
-        h1 {
+        .logo {
+            width: 500px;
+            height: auto;
             margin-bottom: 20px;
-            color: #C73659;
-            font-size: 2em;
         }
 
         .controls {
@@ -60,20 +63,46 @@
 
         .video-container {
             position: relative;
-            margin-top: 20px;
         }
 
-        .video-container iframe {
-            width: 100%;
-            height: 500px; /* Ajustez la hauteur selon vos besoins */
-            border: none;
+        /* Media Queries */
+        @media (max-width: 768px) {
+            .logo {
+                width: 300px;
+            }
+
+            .content-box {
+                font-size: 24px;
+                padding: 15px;
+            }
+
+            button, select {
+                font-size: 14px;
+                padding: 8px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                width: 200px;
+            }
+
+            .content-box {
+                font-size: 18px;
+                padding: 10px;
+            }
+
+            button, select {
+                font-size: 12px;
+                padding: 6px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="content-box">
-            <h1>Hazbin Hotel</h1>
+            <img src="Hazbin-Hotel-Logo.png" alt="Hazbin Hotel Logo" class="logo">
             <div class="controls">
                 <select id="episode-select">
                     <option value="1">Épisode 1</option>
@@ -85,62 +114,156 @@
                     <option value="7">Épisode 7</option>
                     <option value="8">Épisode 8</option>
                 </select>
+                <select id="player-select">
+                    <option value="embed1">Lecteur 1 (Vidmoly)</option>
+                    <option value="embed2">Lecteur 2 (SendVid)</option>
+                    <option value="embed3">Lecteur 3 (Mega)</option>
+                    <!-- Vous pouvez ajouter d'autres options ici pour d'autres lecteurs -->
+                </select>
                 <button id="toggle-version">Changer en VOSTFR</button>
             </div>
 
-            <div class="video-container">
-                <iframe id="video-frame" src="" allowfullscreen></iframe>
-            </div>
+            <!-- Cible pour Vidstack -->
+            <div id="video-target"></div>
         </div>
     </div>
 
     <script>
-        const videoPaths = {
-            VF: {
-      1: 'https://mega.nz/embed/v9NjgICZ#J6O_WROspZ2DvlidOjP7bhtk4zwjfKLfGfUIqjgN90k',
-      2: 'https://mega.nz/embed/S0UUCbpb#m5e_zDvbJ4MlZs9-2pr8wxriT9CaMEs-_Xv7micl9dk',
-      3: 'https://mega.nz/embed/K1VT1JhA#arNgJVu0eJgLBpoOXeWURk95PIZD513DcUkOSGhAPFE',
-      4: 'https://mega.nz/embed/L90hwZTI#kYH1_lOftW6HF7PmTjAO4OfN2d1ZJbEFENG1U2kd0ec',
-      5: 'https://mega.nz/embed/fodjyKrK#u6H5Rn7eTZL5XedfypkxjZ6Pud22GJFk_gt9BPwqQa0',
-      6: 'https://mega.nz/embed/TkEwSBaJ#4Mnkbi4MbSDHaSAkue89ahzmLHMlJD0sb4X7NSJy-oI',
-      7: 'https://mega.nz/embed/T9E1TYyT#hzU5XQ2SQJg_sWod7XrnJ5RG8EKUXzFWGt8LGvnFZVg',
-      8: 'https://mega.nz/embed/74FmyQib#-XPGAnppN761wdR4MLZwMoZWPREuZGtWaMXq1UG5V14'
-                // Ajoutez les autres épisodes
-            },
-            VOSTFR: {
-      1: 'https://mega.nz/embed/K5k3RZjA#8ErBT4dpyLXcqrXhb_g3hkwYvuj1xeW-3Vs6EFGv6-g',
-      2: 'https://mega.nz/embed/y11hiB6Z#Vravv33jk20dcticXBxHeKJOx8DxHOCM0jqLy-EhpO0',
-      3: 'https://mega.nz/embed/H1skwRDZ#Lj7Sbgb2J3vZvUPyEZzBqN48UHkLUdtS6HyKxO13VRw',
-      4: 'https://mega.nz/embed/iht03RYR#Jc7-Hp2MdecE-a16mYXFEAd3hlPmWD631uV5d6bGx-U',
-      5: 'https://mega.nz/embed/i8FB1RhZ#-XR1Nbl2bP1JPcNvnUlhBvDb29qtRVtVQSQb3ljUbe4',
-      6: 'https://mega.nz/embed/P4VFmSzB#1Ooa9jB_Xx7JE7Xfby_P8QMem3TELj61Z5k3hhEATsY',
-      7: 'https://mega.nz/embed/z9tHwTqa#4vnW9Oxwn5EK9UrXRjXJ1LtYY7T3yTr5gKMU1PMR7ao',
-      8: 'https://mega.nz/embed/X0Mn2K7C#4PB9kWN7uKl1vtRgfANhJFrIkevdM7kUb81ULu4B4ZU'
-            }
-        };
+        const videopaths = {
+    1: {
+        VF: {
+            embed1: 'https://vidmoly.to/embed-wvcvagcxos0x.html',
+            embed2: 'https://sendvid.com/ex6aay3y',
+            embed3: 'https://mega.nz/embed/v9NjgICZ#J6O_WROspZ2DvlidOjP7bhtk4zwjfKLfGfUIqjgN90k'
+        },
+        VOSTFR: {
+            embed1: 'https://vidmoly.to/embed-kp4067qmak3i.html',
+            embed2: 'https://sendvid.com/25w1mtlt',
+            embed3: 'https://mega.nz/embed/K5k3RZjA#8ErBT4dpyLXcqrXhb_g3hkwYvuj1xeW-3Vs6EFGv6-g'
+        }
+    },
+    2: {
+        VF: {
+            embed1: 'https://vidmoly.to/embed-m9tc76zyqmxu.html',
+            embed2: 'https://sendvid.com/ex6aay3y',
+            embed3: 'https://mega.nz/embed/S0UUCbpb#m5e_zDvbJ4MlZs9-2pr8wxriT9CaMEs-_Xv7micl9dk'
+        },
+        VOSTFR: {
+            embed1: 'https://vidmoly.to/embed-6t4gd2qsab6x.html',
+            embed2: 'https://sendvid.com/6jba8w6t',
+            embed3: 'https://mega.nz/embed/y11hiB6Z#Vravv33jk20dcticXBxHeKJOx8DxHOCM0jqLy-EhpO0'
+        }
+    },
+    3: {
+        VF: {
+            embed1: 'https://vidmoly.to/embed-33kh8mbt7db5.html',
+            embed2: 'https://sendvid.com/71vg35gv',
+            embed3: 'https://mega.nz/embed/K1VT1JhA#arNgJVu0eJgLBpoOXeWURk95PIZD513DcUkOSGhAPFE'
+        },
+        VOSTFR: {
+            embed1: 'https://vidmoly.to/embed-2if6n4she4j8.html',
+            embed2: 'https://sendvid.com/f75x1voj',
+            embed3: 'https://mega.nz/embed/H1skwRDZ#Lj7Sbgb2J3vZvUPyEZzBqN48UHkLUdtS6HyKxO13VRw'
+        }
+    },
+    4: {
+        VF: {
+            embed1: 'https://vidmoly.to/embed-nepfng4st7uv.html',
+            embed2: 'https://sendvid.com/yh0l9ko5',
+            embed3: 'https://mega.nz/embed/L90hwZTI#kYH1_lOftW6HF7PmTjAO4OfN2d1ZJbEFENG1U2kd0ec'
+        },
+        VOSTFR: {
+            embed1: 'https://vidmoly.to/embed-cj80ygl7f8h6.html',
+            embed2: 'https://sendvid.com/sxmrtt50',
+            embed3: 'https://mega.nz/embed/iht03RYR#Jc7-Hp2MdecE-a16mYXFEAd3hlPmWD631uV5d6bGx-U'
+        }
+    },
+    5: {
+        VF: {
+            embed1: 'https://vidmoly.to/embed-tdnjvdfiz1ke.html',
+            embed2: 'https://sendvid.com/f7cunxxg',
+            embed3: 'https://mega.nz/embed/fodjyKrK#u6H5Rn7eTZL5XedfypkxjZ6Pud22GJFk_gt9BPwqQa0'
+        },
+        VOSTFR: {
+            embed1: 'https://vidmoly.to/embed-gj8i231lv029.html',
+            embed2: 'https://sendvid.com/mckuyqgi',
+            embed3: 'https://mega.nz/embed/i8FB1RhZ#-XR1Nbl2bP1JPcNvnUlhBvDb29qtRVtVQSQb3ljUbe4'
+        }
+    },
+    6: {
+        VF: {
+            embed1: 'https://vidmoly.to/embed-abl6yn46o0lu.html',
+            embed2: 'https://sendvid.com/ssa7vl9k',
+            embed3: 'https://mega.nz/embed/TkEwSBaJ#4Mnkbi4MbSDHaSAkue89ahzmLHMlJD0sb4X7NSJy-oI'
+        },
+        VOSTFR: {
+            embed1: 'https://vidmoly.to/embed-20u9hdqbmzsc.html',
+            embed2: 'https://sendvid.com/gnlkueua',
+            embed3: 'https://mega.nz/embed/P4VFmSzB#1Ooa9jB_Xx7JE7Xfby_P8QMem3TELj61Z5k3hhEATsY'
+        }
+    },
+    7: {
+        VF: {
+            embed1: 'https://vidmoly.to/embed-nzqdml8pqpfz.html',
+            embed2: 'https://sendvid.com/d1govmi0',
+            embed3: 'https://mega.nz/embed/T9E1TYyT#hzU5XQ2SQJg_sWod7XrnJ5RG8EKUXzFWGt8LGvnFZVg'
+        },
+        VOSTFR: {
+            embed1: 'https://vidmoly.to/embed-buvil8dacesq.html',
+            embed2: 'https://sendvid.com/pdeoargd',
+            embed3: 'https://mega.nz/embed/z9tHwTqa#4vnW9Oxwn5EK9UrXRjXJ1LtYY7T3yTr5gKMU1PMR7ao'
+        }
+    },
+    8: {
+        VF: {
+            embed1: 'https://vidmoly.to/embed-qpp2blqqthk8.html',
+            embed2: 'https://sendvid.com/3q6sua5w',
+            embed3: 'https://mega.nz/embed/74FmyQib#-XPGAnppN761wdR4MLZwMoZWPREuZGtWaMXq1UG5V14'
+        },
+        VOSTFR: {
+            embed1: 'https://vidmoly.to/embed-pzhk9y0fzdwd.html',
+            embed2: 'https://sendvid.com/lavjguzc',
+            embed3: 'https://mega.nz/embed/X0Mn2K7C#4PB9kWN7uKl1vtRgfANhJFrIkevdM7kUb81ULu4B4ZU'
+        }
+    }
+};
 
-        let currentEpisode = 1;
+       let currentEpisode = 1;
         let currentLanguage = 'VF';
+        let currentPlayer = 'embed1';
 
         const episodeSelect = document.getElementById('episode-select');
+        const playerSelect = document.getElementById('player-select');
         const toggleVersionButton = document.getElementById('toggle-version');
-        const videoFrame = document.getElementById('video-frame');
 
-        function updateVideo() {
-            videoFrame.src = videoPaths[currentLanguage][currentEpisode];
+        function loadPlayer() {
+            const src = videopaths[currentEpisode][currentLanguage][currentPlayer];
+            const target = document.getElementById('video-target');
+
+            // Intégration du lecteur selon le choix
+            target.innerHTML = `<iframe src="${src}" width="100%" height="450" frameborder="0" allowfullscreen></iframe>`;
         }
 
-        updateVideo();
+        // Initialisation du lecteur pour le premier épisode et la langue VF
+        loadPlayer();
 
+        // Changer d'épisode
         episodeSelect.addEventListener('change', () => {
             currentEpisode = episodeSelect.value;
-            updateVideo();
+            loadPlayer();
         });
 
+        // Changer de version (VF / VOSTFR)
         toggleVersionButton.addEventListener('click', () => {
             currentLanguage = currentLanguage === 'VF' ? 'VOSTFR' : 'VF';
             toggleVersionButton.textContent = currentLanguage === 'VF' ? 'Changer en VOSTFR' : 'Changer en VF';
-            updateVideo();
+            loadPlayer();
+        });
+
+        // Changer de lecteur
+        playerSelect.addEventListener('change', () => {
+            currentPlayer = playerSelect.value;
+            loadPlayer();
         });
     </script>
 </body>
