@@ -1,20 +1,28 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hazbin Hotel</title>
     <link rel="stylesheet" href="https://cdn.vidstack.io/player.css" />
     <link rel="stylesheet" href="https://cdn.vidstack.io/plyr.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
     <style>
+        @font-face {
+            font-family: 'Gotham';
+            src: url('fonts/Gotham.woff2') format('woff2'),
+                url('fonts/Gotham.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+
         body {
             background-image: url('https://images2.alphacoders.com/134/1348359.jpeg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
             color: #EEEEEE;
-            font-family: Silkscreen;
+            font-family: Gotham;
             margin: 0;
             padding: 0;
             display: flex;
@@ -45,7 +53,8 @@
             margin-bottom: 20px;
         }
 
-        button, select {
+        button,
+        select {
             background-color: #A91D3A;
             color: #EEEEEE;
             border: none;
@@ -54,10 +63,11 @@
             cursor: pointer;
             margin-right: 10px;
             border-radius: 4px;
-            font-family: Silkscreen;
+            font-family: Gotham;
         }
 
-        button:hover, select:hover {
+        button:hover,
+        select:hover {
             background-color: #C73659;
         }
 
@@ -76,7 +86,8 @@
                 padding: 15px;
             }
 
-            button, select {
+            button,
+            select {
                 font-size: 14px;
                 padding: 8px;
             }
@@ -92,13 +103,15 @@
                 padding: 10px;
             }
 
-            button, select {
+            button,
+            select {
                 font-size: 12px;
                 padding: 6px;
             }
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="content-box">
@@ -115,7 +128,7 @@
                     <option value="8">Épisode 8</option>
                 </select>
                 <select id="player-select">
-                    <option value="embed1">Lecteur 1 (Vidmoly)</option>
+                    <option value="embed1">Lecteur 1 (Odysee)</option>
                     <option value="embed2">Lecteur 2 (SendVid)</option>
                     <option value="embed3">Lecteur 3 (Mega)</option>
                     <!-- Vous pouvez ajouter d'autres options ici pour d'autres lecteurs -->
@@ -130,105 +143,105 @@
 
     <script>
         const videopaths = {
-    1: {
-        VF: {
-            embed1: 'https://vidmoly.to/embed-wvcvagcxos0x.html',
-            embed2: 'https://sendvid.com/embed/ex6aay3y',
-            embed3: 'https://mega.nz/embed/v9NjgICZ#J6O_WROspZ2DvlidOjP7bhtk4zwjfKLfGfUIqjgN90k'
-        },
-        VOSTFR: {
-            embed1: 'https://vidmoly.to/embed-kp4067qmak3i.html',
-            embed2: 'https://sendvid.com/embed/25w1mtlt',
-            embed3: 'https://mega.nz/embed/K5k3RZjA#8ErBT4dpyLXcqrXhb_g3hkwYvuj1xeW-3Vs6EFGv6-g'
-        }
-    },
-    2: {
-        VF: {
-            embed1: 'https://vidmoly.to/embed-m9tc76zyqmxu.html',
-            embed2: 'https://sendvid.com/embed/ex6aay3y',
-            embed3: 'https://mega.nz/embed/S0UUCbpb#m5e_zDvbJ4MlZs9-2pr8wxriT9CaMEs-_Xv7micl9dk'
-        },
-        VOSTFR: {
-            embed1: 'https://vidmoly.to/embed-6t4gd2qsab6x.html',
-            embed2: 'https://sendvid.com/embed/6jba8w6t',
-            embed3: 'https://mega.nz/embed/y11hiB6Z#Vravv33jk20dcticXBxHeKJOx8DxHOCM0jqLy-EhpO0'
-        }
-    },
-    3: {
-        VF: {
-            embed1: 'https://vidmoly.to/embed-33kh8mbt7db5.html',
-            embed2: 'https://sendvid.com/embed/71vg35gv',
-            embed3: 'https://mega.nz/embed/K1VT1JhA#arNgJVu0eJgLBpoOXeWURk95PIZD513DcUkOSGhAPFE'
-        },
-        VOSTFR: {
-            embed1: 'https://vidmoly.to/embed-2if6n4she4j8.html',
-            embed2: 'https://sendvid.com/embed/f75x1voj',
-            embed3: 'https://mega.nz/embed/H1skwRDZ#Lj7Sbgb2J3vZvUPyEZzBqN48UHkLUdtS6HyKxO13VRw'
-        }
-    },
-    4: {
-        VF: {
-            embed1: 'https://vidmoly.to/embed-nepfng4st7uv.html',
-            embed2: 'https://sendvid.com/embed/yh0l9ko5',
-            embed3: 'https://mega.nz/embed/L90hwZTI#kYH1_lOftW6HF7PmTjAO4OfN2d1ZJbEFENG1U2kd0ec'
-        },
-        VOSTFR: {
-            embed1: 'https://vidmoly.to/embed-cj80ygl7f8h6.html',
-            embed2: 'https://sendvid.com/embed/sxmrtt50',
-            embed3: 'https://mega.nz/embed/iht03RYR#Jc7-Hp2MdecE-a16mYXFEAd3hlPmWD631uV5d6bGx-U'
-        }
-    },
-    5: {
-        VF: {
-            embed1: 'https://vidmoly.to/embed-tdnjvdfiz1ke.html',
-            embed2: 'https://sendvid.com/embed/f7cunxxg',
-            embed3: 'https://mega.nz/embed/fodjyKrK#u6H5Rn7eTZL5XedfypkxjZ6Pud22GJFk_gt9BPwqQa0'
-        },
-        VOSTFR: {
-            embed1: 'https://vidmoly.to/embed-gj8i231lv029.html',
-            embed2: 'https://sendvid.com/embed/mckuyqgi',
-            embed3: 'https://mega.nz/embed/i8FB1RhZ#-XR1Nbl2bP1JPcNvnUlhBvDb29qtRVtVQSQb3ljUbe4'
-        }
-    },
-    6: {
-        VF: {
-            embed1: 'https://vidmoly.to/embed-abl6yn46o0lu.html',
-            embed2: 'https://sendvid.com/embed/ssa7vl9k',
-            embed3: 'https://mega.nz/embed/TkEwSBaJ#4Mnkbi4MbSDHaSAkue89ahzmLHMlJD0sb4X7NSJy-oI'
-        },
-        VOSTFR: {
-            embed1: 'https://vidmoly.to/embed-20u9hdqbmzsc.html',
-            embed2: 'https://sendvid.com/embed/gnlkueua',
-            embed3: 'https://mega.nz/embed/P4VFmSzB#1Ooa9jB_Xx7JE7Xfby_P8QMem3TELj61Z5k3hhEATsY'
-        }
-    },
-    7: {
-        VF: {
-            embed1: 'https://vidmoly.to/embed-nzqdml8pqpfz.html',
-            embed2: 'https://sendvid.com/embed/d1govmi0',
-            embed3: 'https://mega.nz/embed/T9E1TYyT#hzU5XQ2SQJg_sWod7XrnJ5RG8EKUXzFWGt8LGvnFZVg'
-        },
-        VOSTFR: {
-            embed1: 'https://vidmoly.to/embed-buvil8dacesq.html',
-            embed2: 'https://sendvid.com/embed/pdeoargd',
-            embed3: 'https://mega.nz/embed/z9tHwTqa#4vnW9Oxwn5EK9UrXRjXJ1LtYY7T3yTr5gKMU1PMR7ao'
-        }
-    },
-    8: {
-        VF: {
-            embed1: 'https://vidmoly.to/embed-qpp2blqqthk8.html',
-            embed2: 'https://sendvid.com/embed/3q6sua5w',
-            embed3: 'https://mega.nz/embed/74FmyQib#-XPGAnppN761wdR4MLZwMoZWPREuZGtWaMXq1UG5V14'
-        },
-        VOSTFR: {
-            embed1: 'https://vidmoly.to/embed-pzhk9y0fzdwd.html',
-            embed2: 'https://sendvid.com/embed/lavjguzc',
-            embed3: 'https://mega.nz/embed/X0Mn2K7C#4PB9kWN7uKl1vtRgfANhJFrIkevdM7kUb81ULu4B4ZU'
-        }
-    }
-};
+            1: {
+                VF: {
+                    embed1: 'https://odysee.com/$/embed/@OwlVideo:a/Hazbin-Hotel-S01e01-Histoire-De-L’Enfer:a?r=3aUKzkdgnFLc1zKVSAhW7bpChW87e1xi&signature=2cd3692bdc218d487098289f4cc27d87cfdd92e1dd9617f3494ae3fd8aa5287a4a4b3daa0a40d45551cd9509ee27a585010bd5036a6f1986af6b27ad77c500dc&signature_ts=1734634969',
+                    embed2: 'https://sendvid.com/embed/ex6aay3y',
+                    embed3: 'https://mega.nz/embed/v9NjgICZ#J6O_WROspZ2DvlidOjP7bhtk4zwjfKLfGfUIqjgN90k'
+                },
+                VOSTFR: {
+                    embed1: 'https://odysee.com/$/embed/@OwlVideo:a/-VOSTFR-Hazbin-Hotel-S01e01-Histoire-De-L’Enfer:7?r=3aUKzkdgnFLc1zKVSAhW7bpChW87e1xi&signature=7eff41ef83a8ead6a44b81255d93a5691470e5f54a5a47f937bed842b1a4b7b64410621ce510f1c85ea6dccc96e57d617fa9c7efc4f72c5d0dabc94cdbf161a5&signature_ts=1734699597',
+                    embed2: 'https://sendvid.com/embed/25w1mtlt',
+                    embed3: 'https://mega.nz/embed/K5k3RZjA#8ErBT4dpyLXcqrXhb_g3hkwYvuj1xeW-3Vs6EFGv6-g'
+                }
+            },
+            2: {
+                VF: {
+                    embed1: 'https://odysee.com/$/embed/@OwlVideo:a/Hazbin-Hotel-S01e02-Radio-Contre-Vidéo:3?r=3aUKzkdgnFLc1zKVSAhW7bpChW87e1xi&signature=b58a5873b43b2d1656e09cfd48875dd2fff5f41d1b451969c635fa43f3297b3b57652f8089f2b71b4ed285e79059058268996044d6bfd3e6c75180409098db2e&signature_ts=1734698051',
+                    embed2: 'https://sendvid.com/embed/ex6aay3y',
+                    embed3: 'https://mega.nz/embed/S0UUCbpb#m5e_zDvbJ4MlZs9-2pr8wxriT9CaMEs-_Xv7micl9dk'
+                },
+                VOSTFR: {
+                    embed1: 'https://odysee.com/$/embed/@OwlVideo:a/-VOSTFR-Hazbin-Hotel-S01e02-Radio-Contre-Vidéo:8?r=3aUKzkdgnFLc1zKVSAhW7bpChW87e1xi&signature=5eb59a9bd7bd67697c066136e131160157e79004f7404830e96111463f884daf06de572612a007964a8cc3723b7d6c82caf2c7de7b7e83712e88dbf0b1e6ebf5&signature_ts=1734699629',
+                    embed2: 'https://sendvid.com/embed/6jba8w6t',
+                    embed3: 'https://mega.nz/embed/y11hiB6Z#Vravv33jk20dcticXBxHeKJOx8DxHOCM0jqLy-EhpO0'
+                }
+            },
+            3: {
+                VF: {
+                    embed1: 'https://odysee.com/$/embed/@OwlVideo:a/Hazbin-Hotel-S01e03-Oeufs-Brouillés:a?r=3aUKzkdgnFLc1zKVSAhW7bpChW87e1xi&signature=87d8fb37a4e904614bbb04d49570a8d947da44e7072321613e8f3fe204a7571a2b0cd36026a4cf681c58c6ac274264ac21033a593dd61a8c59a59798682eb498&signature_ts=1734698094',
+                    embed2: 'https://sendvid.com/embed/71vg35gv',
+                    embed3: 'https://mega.nz/embed/K1VT1JhA#arNgJVu0eJgLBpoOXeWURk95PIZD513DcUkOSGhAPFE'
+                },
+                VOSTFR: {
+                    embed1: 'https://odysee.com/$/embed/@OwlVideo:a/-VOSTFR-Hazbin-Hotel-S01e03-Oeufs-Brouillés:a?r=3aUKzkdgnFLc1zKVSAhW7bpChW87e1xi&signature=97ba8804f755c38e8eb7c9f03d92bf45414eaa17d238255c6154c916702a635d66a3d6b8a46eccc9e73e470359c6ae7079e567aefb93a29ad7890a497dd162d7&signature_ts=1734699650',
+                    embed2: 'https://sendvid.com/embed/f75x1voj',
+                    embed3: 'https://mega.nz/embed/H1skwRDZ#Lj7Sbgb2J3vZvUPyEZzBqN48UHkLUdtS6HyKxO13VRw'
+                }
+            },
+            4: {
+                VF: {
+                    embed1: 'https://odysee.com/$/embed/@OwlVideo:a/Hazbin-Hotel-S01e04-Mascarade:9?r=3aUKzkdgnFLc1zKVSAhW7bpChW87e1xi&signature=02f235342ff65ad85a446674f241f06711919634626de1a47029caa23854cd2443f14e902c0a1e68ffbdd2f045fc025f2432fb81bfaa86922165ef2b86173b15&signature_ts=1734700152',
+                    embed2: 'https://sendvid.com/embed/yh0l9ko5',
+                    embed3: 'https://mega.nz/embed/L90hwZTI#kYH1_lOftW6HF7PmTjAO4OfN2d1ZJbEFENG1U2kd0ec'
+                },
+                VOSTFR: {
+                    embed1: 'https://odysee.com/$/embed/@OwlVideo:a/-VOSTFR-Hazbin-Hotel-S01e04-Mascarade:b?r=3aUKzkdgnFLc1zKVSAhW7bpChW87e1xi&signature=c2615b0f11829a5bcc8720fbef602d3d000dd690c8768082accacaa69813977d59e2aeab0bae23a59f31a05ac1b622039a1960a26b89aca7625df2405a1ae9a5&signature_ts=1734699795',
+                    embed2: 'https://sendvid.com/embed/sxmrtt50',
+                    embed3: 'https://mega.nz/embed/iht03RYR#Jc7-Hp2MdecE-a16mYXFEAd3hlPmWD631uV5d6bGx-U'
+                }
+            },
+            5: {
+                VF: {
+                    embed1: 'https://odysee.com/$/embed/@OwlVideo:a/Hazbin-Hotel-S01e05-Lucifer-Entre-En-Scène:2?r=3aUKzkdgnFLc1zKVSAhW7bpChW87e1xi&signature=9b61600a7d20a7e71dfb771b0f8b1099615f096184323cc4a8dc8a31860e549b18935ca30563dac8fa0e2ed4f47329b624c3be05e85b9a1489ab5f7c752147f0&signature_ts=1734698159',
+                    embed2: 'https://sendvid.com/embed/f7cunxxg',
+                    embed3: 'https://mega.nz/embed/fodjyKrK#u6H5Rn7eTZL5XedfypkxjZ6Pud22GJFk_gt9BPwqQa0'
+                },
+                VOSTFR: {
+                    embed1: 'https://odysee.com/$/embed/@OwlVideo:a/-VOSTFR-Hazbin-Hotel-S01e05-Lucifer-entre-en-scène:0?r=3aUKzkdgnFLc1zKVSAhW7bpChW87e1xi&signature=3b5293b4adf1a02e48f03a0b3f4560a40e9cc66669701a54ebd71a572bd543d6783153b9d0cd97a66076e8d0ddce45996202d5f75c7db1f367b88aff4aac5dfb&signature_ts=1734699813',
+                    embed2: 'https://sendvid.com/embed/mckuyqgi',
+                    embed3: 'https://mega.nz/embed/i8FB1RhZ#-XR1Nbl2bP1JPcNvnUlhBvDb29qtRVtVQSQb3ljUbe4'
+                }
+            },
+            6: {
+                VF: {
+                    embed1: 'https://odysee.com/$/embed/@OwlVideo:a/Hazbin-Hotel-S01e06-Sur-Les-Chemins-De-La-Rédemption:2?r=3aUKzkdgnFLc1zKVSAhW7bpChW87e1xi&signature=c8fb9644ba75180f90f05c0e08ca0e3f3b5d8a5c4922661314afc21f6c5563c565e1f1d6ca8a42eb609b45f300f741f8dd80c2ad30108b4311c81d0d0985efa5&signature_ts=1734698169',
+                    embed2: 'https://sendvid.com/embed/ssa7vl9k',
+                    embed3: 'https://mega.nz/embed/TkEwSBaJ#4Mnkbi4MbSDHaSAkue89ahzmLHMlJD0sb4X7NSJy-oI'
+                },
+                VOSTFR: {
+                    embed1: 'https://odysee.com/$/embed/@OwlVideo:a/-VOSTFR-Hazbin-Hotel-S01e06-Sur-Les-Chemins-De-La-Rédemption:a?r=3aUKzkdgnFLc1zKVSAhW7bpChW87e1xi&signature=0f27238a22a347be0332d03cd9c98c76ebd289aab9d1bc877345a803522c2e0d48840aa6264735205dd3d7f1101b169271cecd06dfbd9bd20a874534f86f73bb&signature_ts=1734699940',
+                    embed2: 'https://sendvid.com/embed/gnlkueua',
+                    embed3: 'https://mega.nz/embed/P4VFmSzB#1Ooa9jB_Xx7JE7Xfby_P8QMem3TELj61Z5k3hhEATsY'
+                }
+            },
+            7: {
+                VF: {
+                    embed1: 'https://odysee.com/$/embed/@OwlVideo:a/Hazbin-Hotel-S01e07-Hello-Rosie!:3?r=3aUKzkdgnFLc1zKVSAhW7bpChW87e1xi&signature=1437ea5f3fdb9bc4a5bed0e405be53d3d9d0e5d80d28b2619f486cd7f46b308227c553f767dd40b2d647195108e94154f3b093b68ee9824a4c6b939aaf0322c6&signature_ts=1734698240',
+                    embed2: 'https://sendvid.com/embed/d1govmi0',
+                    embed3: 'https://mega.nz/embed/T9E1TYyT#hzU5XQ2SQJg_sWod7XrnJ5RG8EKUXzFWGt8LGvnFZVg'
+                },
+                VOSTFR: {
+                    embed1: 'https://odysee.com/$/embed/@OwlVideo:a/-VOSTFR-Hazbin-Hotel-S01e07-Hello-Rosie!:f?r=3aUKzkdgnFLc1zKVSAhW7bpChW87e1xi&signature=0b203f16130e42f515b4d0ab72454525615bcae4e50c1d5367e6b17ed27d510e52ec9148eb3a96282aa39ae3a933a0a073002206da7c40f56407270f59a632d5&signature_ts=1734699829',
+                    embed2: 'https://sendvid.com/embed/pdeoargd',
+                    embed3: 'https://mega.nz/embed/z9tHwTqa#4vnW9Oxwn5EK9UrXRjXJ1LtYY7T3yTr5gKMU1PMR7ao'
+                }
+            },
+            8: {
+                VF: {
+                    embed1: 'https://odysee.com/$/embed/@OwlVideo:a/Hazbin-Hotel-S01e08-Le-grand-final:8?r=3aUKzkdgnFLc1zKVSAhW7bpChW87e1xi&signature=ec362e685235a55dc5a0aa5ee366a2447885f8988f438a439adf0f1492a455f73d1eec83ead0dd2f2ac888f37764b2a5d3858eeb194b596adeb9e102c2d78094&signature_ts=1734698250',
+                    embed2: 'https://sendvid.com/embed/3q6sua5w',
+                    embed3: 'https://mega.nz/embed/74FmyQib#-XPGAnppN761wdR4MLZwMoZWPREuZGtWaMXq1UG5V14'
+                },
+                VOSTFR: {
+                    embed1: 'https://odysee.com/$/embed/@OwlVideo:a/-VOSTFR-Hazbin-Hotel-S01e08-Le-Grand-Final:2?r=3aUKzkdgnFLc1zKVSAhW7bpChW87e1xi&signature=25c6b755f38b6569fc6f912fa823d987f08a611f613287a2a48335f4e560a2e75efa66b255d85d192c2e87a6dcb9ecc159297ac149087069638cd61b8923066a&signature_ts=1734699869',
+                    embed2: 'https://sendvid.com/embed/lavjguzc',
+                    embed3: 'https://mega.nz/embed/X0Mn2K7C#4PB9kWN7uKl1vtRgfANhJFrIkevdM7kUb81ULu4B4ZU'
+                }
+            }
+        };
 
-       let currentEpisode = 1;
+        let currentEpisode = 1;
         let currentLanguage = 'VF';
         let currentPlayer = 'embed1';
 
@@ -267,4 +280,5 @@
         });
     </script>
 </body>
+
 </html>
