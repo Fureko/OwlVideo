@@ -94,7 +94,7 @@
     /* Media Queries */
     @media (max-width: 768px) {
       .logo {
-        width: 300px;
+        width: 100%;
       }
 
       .content-box {
@@ -222,86 +222,93 @@
       }
     };
 
-    let currentSaison = 'saison1';
-    let currentLanguage = 'VF';
-    let currentEpisode = '1';
+   let currentSaison = 'saison1';
+  let currentLanguage = 'VF';
+  let currentEpisode = '1';
 
-    const videoTarget = document.getElementById('video-target');
-    const episodeSelect = document.getElementById('episode-select');
-    const toggleSaisonButton = document.getElementById('toggle-saison');
-    const toggleVersionButton = document.getElementById('toggle-version');
-    const logoImg = document.getElementById('logo-img');
+  const videoTarget = document.getElementById('video-target');
+  const episodeSelect = document.getElementById('episode-select');
+  const toggleSaisonButton = document.getElementById('toggle-saison');
+  const toggleVersionButton = document.getElementById('toggle-version');
+  const logoImg = document.getElementById('logo-img');
 
-    // Fonction pour charger la vidéo sélectionnée
-    function loadPlayer() {
-      const episode = videos[currentSaison].episodes[currentEpisode];
-      if (!episode) return console.error('Épisode non trouvé:', currentEpisode);
+  // Fonction pour charger la vidéo sélectionnée
+  function loadPlayer() {
+    const episode = videos[currentSaison].episodes[currentEpisode];
+    if (!episode) return console.error('Épisode non trouvé:', currentEpisode);
 
-      const src = episode[currentLanguage];
-      if (!src) {
-        videoTarget.innerHTML = `<p style="color:white;text-align:center">Vidéo non disponible pour cet épisode en ${currentLanguage}.</p>`;
-        return;
-      }
-
-      if (src.endsWith('.mp4')) {
-        videoTarget.innerHTML = `
-          <video controls width="100%" height="450" preload="metadata">
-            <source src="${src}" type="video/mp4">
-            Votre navigateur ne supporte pas la vidéo HTML5.
-          </video>`;
-      } else {
-        videoTarget.innerHTML = `<iframe src="${src}" width="100%" height="450" frameborder="0" allowfullscreen></iframe>`;
-      }
+    const src = episode[currentLanguage];
+    if (!src) {
+      videoTarget.innerHTML = `<p style="color:white;text-align:center">Vidéo non disponible pour cet épisode en ${currentLanguage}.</p>`;
+      return;
     }
 
-    // Charger la liste des épisodes pour la saison courante
-    function loadEpisodes() {
-      const eps = videos[currentSaison].episodes;
-      const keys = Object.keys(eps);
-      episodeSelect.innerHTML = keys.map(ep => `<option value="${ep}">Épisode ${ep}</option>`).join('');
-      currentEpisode = keys[0];
-      episodeSelect.value = currentEpisode;
+    if (src.endsWith('.mp4')) {
+      videoTarget.innerHTML = `
+        <video controls width="100%" height="450" preload="metadata">
+          <source src="${src}" type="video/mp4">
+          Votre navigateur ne supporte pas la vidéo HTML5.
+        </video>`;
+    } else {
+      videoTarget.innerHTML = `<iframe src="${src}" width="100%" height="450" frameborder="0" allowfullscreen></iframe>`;
     }
+  }
 
-    // Événement changement épisode
-    episodeSelect.addEventListener('change', () => {
-      currentEpisode = episodeSelect.value;
-      loadPlayer();
-    });
+  // Charger la liste des épisodes pour la saison courante
+  function loadEpisodes() {
+    const eps = videos[currentSaison].episodes;
+    const keys = Object.keys(eps);
+    episodeSelect.innerHTML = keys.map(ep => `<option value="${ep}">Épisode ${ep}</option>`).join('');
+    currentEpisode = keys[0];
+    episodeSelect.value = currentEpisode;
+  }
 
-    // Événement changement langue
-    toggleVersionButton.addEventListener('click', () => {
-      currentLanguage = currentLanguage === 'VF' ? 'VOSTFR' : 'VF';
-      toggleVersionButton.textContent = currentLanguage === 'VF' ? 'Changer en VOSTFR' : 'Changer en VF';
-      loadPlayer();
-    });
+  // Événement changement épisode
+  episodeSelect.addEventListener('change', () => {
+    currentEpisode = episodeSelect.value;
+    loadPlayer();
+  });
 
-    // Événement changement saison
-    toggleSaisonButton.addEventListener('click', () => {
-      currentSaison = currentSaison === 'saison1' ? 'saison2' : 'saison1';
+  // Événement changement langue
+  toggleVersionButton.addEventListener('click', () => {
+    currentLanguage = currentLanguage === 'VF' ? 'VOSTFR' : 'VF';
+    toggleVersionButton.textContent = currentLanguage === 'VF' ? 'Changer en VOSTFR' : 'Changer en VF';
+    loadPlayer();
+  });
 
-      logoImg.src = videos[currentSaison].logo;
-      document.body.style.backgroundImage = `url('${videos[currentSaison].background}')`;
+  // Événement changement saison
+  toggleSaisonButton.addEventListener('click', () => {
+    currentSaison = currentSaison === 'saison1' ? 'saison2' : 'saison1';
 
-      toggleSaisonButton.textContent = currentSaison === 'saison1' ? 'Passer à la Saison 2' : 'Passer à la Saison 1';
+    // 🔧 Mise à jour des classes CSS saisonnières
+    document.body.classList.remove('saison1', 'saison2');
+    document.body.classList.add(currentSaison);
 
-      loadEpisodes();
-      loadPlayer();
+    // Mise à jour visuelle
+    logoImg.src = videos[currentSaison].logo;
+    document.body.style.backgroundImage = `url('${videos[currentSaison].background}')`;
 
-      toggleVersionButton.textContent = currentLanguage === 'VF' ? 'Changer en VOSTFR' : 'Changer en VF';
-    });
+    toggleSaisonButton.textContent = currentSaison === 'saison1' ? 'Passer à la Saison 2' : 'Passer à la Saison 1';
 
-    // Initialisation quand la page est prête
-    window.addEventListener('DOMContentLoaded', () => {
-      logoImg.src = videos[currentSaison].logo;
-      document.body.style.backgroundImage = `url('${videos[currentSaison].background}')`;
-      toggleSaisonButton.textContent = 'Passer à la Saison 2';
-      toggleVersionButton.textContent = 'Changer en VOSTFR';
+    loadEpisodes();
+    loadPlayer();
 
-      loadEpisodes();
-      loadPlayer();
-    });
-  </script>
+    toggleVersionButton.textContent = currentLanguage === 'VF' ? 'Changer en VOSTFR' : 'Changer en VF';
+  });
+
+  // Initialisation
+  window.addEventListener('DOMContentLoaded', () => {
+    document.body.classList.add(currentSaison); // 🔧 Appliquer la classe saison initiale
+    logoImg.src = videos[currentSaison].logo;
+    document.body.style.backgroundImage = `url('${videos[currentSaison].background}')`;
+
+    toggleSaisonButton.textContent = 'Passer à la Saison 2';
+    toggleVersionButton.textContent = 'Changer en VOSTFR';
+
+    loadEpisodes();
+    loadPlayer();
+  });
+</script>
 </body>
 
 </html>
