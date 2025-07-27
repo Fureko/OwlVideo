@@ -2,283 +2,306 @@
 <html lang="fr">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hazbin Hotel</title>
-    <link rel="stylesheet" href="https://cdn.vidstack.io/player.css" />
-    <link rel="stylesheet" href="https://cdn.vidstack.io/plyr.css" />
-    <style>
-        @font-face {
-            font-family: 'Gotham';
-            src: url('fonts/Gotham.woff2') format('woff2'),
-                url('fonts/Gotham.woff') format('woff');
-            font-weight: normal;
-            font-style: normal;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hazbin Hotel</title>
+  <style>
+    @font-face {
+      font-family: 'Gotham';
+      src: url('fonts/Gotham.woff2') format('woff2'),
+        url('fonts/Gotham.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+    }
 
-        body {
-            background-image: url('https://images2.alphacoders.com/134/1348359.jpeg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            color: #EEEEEE;
-            font-family: Gotham;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
+    body {
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      color: #EEEEEE;
+      font-family: Gotham;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      transition: all 0.6s ease;
+    }
 
-        .content-box {
-            background-color: rgba(21, 21, 21, 0.8);
-            border-radius: 8px;
-            padding: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-            max-width: 800px;
-            width: 100%;
-            text-align: center;
-            font-size: 30px;
-            box-sizing: border-box;
-        }
+    .content-box {
+      background-color: rgba(21, 21, 21, 0.8);
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+      max-width: 800px;
+      width: 100%;
+      text-align: center;
+      font-size: 30px;
+      box-sizing: border-box;
+      transition: all 0.6s ease;
+    }
 
-        .logo {
-            width: 500px;
-            height: auto;
-            margin-bottom: 20px;
-        }
+    .logo {
+      width: 500px;
+      height: auto;
+      margin-bottom: 20px;
+      transition: all 0.6s ease;
+    }
 
-        .controls {
-            margin-bottom: 20px;
-        }
+    .controls {
+      margin-bottom: 20px;
+    }
 
-        button,
-        select {
-            background-color: #A91D3A;
-            color: #EEEEEE;
-            border: none;
-            padding: 10px;
-            font-size: 16px;
-            cursor: pointer;
-            margin-right: 10px;
-            border-radius: 4px;
-            font-family: Gotham;
-        }
+    button,
+    select {
+      background-color: #A91D3A;
+      color: #EEEEEE;
+      border: none;
+      padding: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-right: 10px;
+      border-radius: 4px;
+      font-family: Gotham;
+      transition: background-color 0.3s;
+    }
 
-        button:hover,
-        select:hover {
-            background-color: #C73659;
-        }
+    button:hover,
+    select:hover {
+      background-color: #C73659;
+    }
 
-        .video-container {
-            position: relative;
-        }
+    /* Saison 2 Theme */
+    body.saison2 {
+      background-image: url('1285870.jpg');
+    }
 
-        /* Media Queries */
-        @media (max-width: 768px) {
-            .logo {
-                width: 300px;
-            }
+    body.saison2 .content-box {
+      background-color: rgba(13, 10, 47, 0.69);
+    }
 
-            .content-box {
-                font-size: 24px;
-                padding: 15px;
-            }
+    body.saison2 button,
+    body.saison2 select {
+      background-color: rgb(77, 164, 178);
+    }
 
-            button,
-            select {
-                font-size: 14px;
-                padding: 8px;
-            }
-        }
+    body.saison2 button:hover,
+    body.saison2 select:hover {
+      background-color: #1a1679;
+    }
 
-        @media (max-width: 480px) {
-            .logo {
-                width: 200px;
-            }
+    /* Media Queries */
+    @media (max-width: 768px) {
+      .logo {
+        width: 300px;
+      }
 
-            .content-box {
-                font-size: 18px;
-                padding: 10px;
-            }
+      .content-box {
+        font-size: 24px;
+        padding: 15px;
+      }
 
-            button,
-            select {
-                font-size: 12px;
-                padding: 6px;
-            }
-        }
-    </style>
+      button,
+      select {
+        font-size: 14px;
+        padding: 8px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .logo {
+        width: 200px;
+      }
+
+      .content-box {
+        font-size: 18px;
+        padding: 10px;
+      }
+
+      button,
+      select {
+        font-size: 12px;
+        padding: 6px;
+      }
+    }
+  </style>
 </head>
 
-<body>
-    <div class="container">
-        <div class="content-box">
-            <img src="Hazbin-Hotel-Logo.png" alt="Hazbin Hotel Logo" class="logo">
-            <div class="controls">
-                <select id="episode-select">
-                    <option value="1">Épisode 1</option>
-                    <option value="2">Épisode 2</option>
-                    <option value="3">Épisode 3</option>
-                    <option value="4">Épisode 4</option>
-                    <option value="5">Épisode 5</option>
-                    <option value="6">Épisode 6</option>
-                    <option value="7">Épisode 7</option>
-                    <option value="8">Épisode 8</option>
-                </select>
-                <select id="player-select">
-                    <option value="embed1">Lecteur 1 (Google Drive)</option>
-                    <option value="embed2">Lecteur 2 (SendVid)</option>
-                    <option value="embed3">Lecteur 3 (Mega)</option>
-                    <!-- Vous pouvez ajouter d'autres options ici pour d'autres lecteurs -->
-                </select>
-                <button id="toggle-version">Changer en VOSTFR</button>
-            </div>
-
-            <!-- Cible pour Vidstack -->
-            <div id="video-target"></div>
-        </div>
+<body class="saison1" style="background-image: url('https://images2.alphacoders.com/134/1348359.jpeg')">
+  <div class="container">
+    <div class="content-box">
+      <img src="Hazbin-Hotel-Logo.png" alt="Hazbin Hotel Logo" class="logo" id="logo-img">
+      <div class="controls">
+        <select id="episode-select"></select>
+        <button id="toggle-version">Changer en VOSTFR</button>
+        <button id="toggle-saison">Passer à la Saison 2</button>
+      </div>
+      <div id="video-target"></div>
     </div>
+  </div>
 
-    <script>
-        const videopaths = {
-            1: {
-                VF: {
-                    embed1: 'https://drive.google.com/file/d/1BSfMqXW5YCoU3gMYbZwpJJmO5aKgd-dr/preview',
-                    embed2: 'https://sendvid.com/embed/ex6aay3y',
-                    embed3: 'https://mega.nz/embed/v9NjgICZ#J6O_WROspZ2DvlidOjP7bhtk4zwjfKLfGfUIqjgN90k'
-                },
-                VOSTFR: {
-                    embed1: 'https://drive.google.com/file/d/1QWoUXzlog6qycf3AvOYlwAWa0WOsPcaK/preview',
-                    embed2: 'https://sendvid.com/embed/25w1mtlt',
-                    embed3: 'https://mega.nz/embed/K5k3RZjA#8ErBT4dpyLXcqrXhb_g3hkwYvuj1xeW-3Vs6EFGv6-g'
-                }
-            },
-            2: {
-                VF: {
-                    embed1: 'https://drive.google.com/file/d/1K1g3YkDPqxtHWBPFliYe5VfFYqwvGEah/preview',
-                    embed2: 'https://sendvid.com/embed/ex6aay3y',
-                    embed3: 'https://mega.nz/embed/S0UUCbpb#m5e_zDvbJ4MlZs9-2pr8wxriT9CaMEs-_Xv7micl9dk'
-                },
-                VOSTFR: {
-                    embed1: 'https://drive.google.com/file/d/1gBStYWx84DB_QZLTCOGFrlyk5MfVruTi/preview',
-                    embed2: 'https://sendvid.com/embed/6jba8w6t',
-                    embed3: 'https://mega.nz/embed/y11hiB6Z#Vravv33jk20dcticXBxHeKJOx8DxHOCM0jqLy-EhpO0'
-                }
-            },
-            3: {
-                VF: {
-                    embed1: 'https://drive.google.com/file/d/1Fk1Hm6Rk6vaCbcjDtCpHuqUknqH1A6-m/preview',
-                    embed2: 'https://sendvid.com/embed/71vg35gv',
-                    embed3: 'https://mega.nz/embed/K1VT1JhA#arNgJVu0eJgLBpoOXeWURk95PIZD513DcUkOSGhAPFE'
-                },
-                VOSTFR: {
-                    embed1: 'https://drive.google.com/file/d/1FJx_PnLAQ4cGLqNXhRwVdnimvBnJ8yLx/preview',
-                    embed2: 'https://sendvid.com/embed/f75x1voj',
-                    embed3: 'https://mega.nz/embed/H1skwRDZ#Lj7Sbgb2J3vZvUPyEZzBqN48UHkLUdtS6HyKxO13VRw'
-                }
-            },
-            4: {
-                VF: {
-                    embed1: 'https://drive.google.com/file/d/15Dalj_2kSMAC4cGwqoBvMXR5OjrRedE9/preview',
-                    embed2: 'https://sendvid.com/embed/yh0l9ko5',
-                    embed3: 'https://mega.nz/embed/L90hwZTI#kYH1_lOftW6HF7PmTjAO4OfN2d1ZJbEFENG1U2kd0ec'
-                },
-                VOSTFR: {
-                    embed1: 'https://drive.google.com/file/d/1DBWLSJSgKxcJo8MfG_xFzgQSZsKYSygt/preview',
-                    embed2: 'https://sendvid.com/embed/sxmrtt50',
-                    embed3: 'https://mega.nz/embed/iht03RYR#Jc7-Hp2MdecE-a16mYXFEAd3hlPmWD631uV5d6bGx-U'
-                }
-            },
-            5: {
-                VF: {
-                    embed1: 'https://drive.google.com/file/d/1tPmgxHn5AuLZiTddDmcZVvmwC06QeUin/preview',
-                    embed2: 'https://sendvid.com/embed/f7cunxxg',
-                    embed3: 'https://mega.nz/embed/fodjyKrK#u6H5Rn7eTZL5XedfypkxjZ6Pud22GJFk_gt9BPwqQa0'
-                },
-                VOSTFR: {
-                    embed1: 'https://drive.google.com/file/d/17kAOfyVW2ROHlLO_JgDMsvxSrOCaR83b/preview',
-                    embed2: 'https://sendvid.com/embed/mckuyqgi',
-                    embed3: 'https://mega.nz/embed/i8FB1RhZ#-XR1Nbl2bP1JPcNvnUlhBvDb29qtRVtVQSQb3ljUbe4'
-                }
-            },
-            6: {
-                VF: {
-                    embed1: 'https://drive.google.com/file/d/14YEFi5zGwYuXQB3mOQ1q2fX-S0L3vvVQ/preview',
-                    embed2: 'https://sendvid.com/embed/ssa7vl9k',
-                    embed3: 'https://mega.nz/embed/TkEwSBaJ#4Mnkbi4MbSDHaSAkue89ahzmLHMlJD0sb4X7NSJy-oI'
-                },
-                VOSTFR: {
-                    embed1: 'https://drive.google.com/file/d/1HE_qgEvsuclb2KPFhOmURxG5KruKruiU/preview',
-                    embed2: 'https://sendvid.com/embed/gnlkueua',
-                    embed3: 'https://mega.nz/embed/P4VFmSzB#1Ooa9jB_Xx7JE7Xfby_P8QMem3TELj61Z5k3hhEATsY'
-                }
-            },
-            7: {
-                VF: {
-                    embed1: 'https://drive.google.com/file/d/13iT5b8v6l7g0UKJFyyzlwyws7VYbBEsz/preview',
-                    embed2: 'https://sendvid.com/embed/d1govmi0',
-                    embed3: 'https://mega.nz/embed/T9E1TYyT#hzU5XQ2SQJg_sWod7XrnJ5RG8EKUXzFWGt8LGvnFZVg'
-                },
-                VOSTFR: {
-                    embed1: 'https://drive.google.com/file/d/1duVRUHa8KkWBVvY0HPcugYGn-ut2BpOe/preview',
-                    embed2: 'https://sendvid.com/embed/pdeoargd',
-                    embed3: 'https://mega.nz/embed/z9tHwTqa#4vnW9Oxwn5EK9UrXRjXJ1LtYY7T3yTr5gKMU1PMR7ao'
-                }
-            },
-            8: {
-                VF: {
-                    embed1: 'https://drive.google.com/file/d/1IZJZJ7IBm8zUR-1dJQe7rGa3cHIoMaVy/preview',
-                    embed2: 'https://sendvid.com/embed/3q6sua5w',
-                    embed3: 'https://mega.nz/embed/74FmyQib#-XPGAnppN761wdR4MLZwMoZWPREuZGtWaMXq1UG5V14'
-                },
-                VOSTFR: {
-                    embed1: 'https://drive.google.com/file/d/1XI4v6MzHTyP-Sti_SmoE2B-PeAWNRYeL/preview',
-                    embed2: 'https://sendvid.com/embed/lavjguzc',
-                    embed3: 'https://mega.nz/embed/X0Mn2K7C#4PB9kWN7uKl1vtRgfANhJFrIkevdM7kUb81ULu4B4ZU'
-                }
-            }
-        };
-
-        let currentEpisode = 1;
-        let currentLanguage = 'VF';
-        let currentPlayer = 'embed1';
-
-        const episodeSelect = document.getElementById('episode-select');
-        const playerSelect = document.getElementById('player-select');
-        const toggleVersionButton = document.getElementById('toggle-version');
-
-        function loadPlayer() {
-            const src = videopaths[currentEpisode][currentLanguage][currentPlayer];
-            const target = document.getElementById('video-target');
-
-            // Intégration du lecteur selon le choix
-            target.innerHTML = `<iframe src="${src}" width="100%" height="450" frameborder="0" allowfullscreen></iframe>`;
+  <script>
+    // Données combinées pour S1 et S2
+    const videos = {
+      saison1: {
+        background: 'https://images2.alphacoders.com/134/1348359.jpeg',
+        logo: 'Hazbin-Hotel-Logo.png',
+        episodes: {
+          1: {
+            VF: 'https://cold8.gofile.io/download/direct/f813c55e-facf-4e74-b291-bad048721f64/Hazbin%20Hotel%20S01e01%20Histoire%20De%20L’Enfer.mp4',
+            VOSTFR: 'https://cold2.gofile.io/download/direct/1e24501c-0f30-4925-8a7f-713020f8af63/%5BVOSTFR%5DHazbin%20Hotel%20S01e01%20Histoire%20De%20L%E2%80%99Enfer.mp4'
+          },
+          2: {
+            VF: 'https://cold-na-phx-2.gofile.io/download/direct/68c3dbb5-3405-4163-91c9-3311dbc4366a/Hazbin%20Hotel%20S01e02%20Radio%20Contre%20Vid%C3%A9o.mp4',
+            VOSTFR: 'https://cold8.gofile.io/download/direct/175be20b-b002-42cd-b7b1-4afc27d0ac45/%5BVOSTFR%5DHazbin%20Hotel%20S01e02%20Radio%20Contre%20Vid%C3%A9o.mp4'
+          },
+          3: {
+            VF: 'https://cold8.gofile.io/download/direct/321efd47-526d-46eb-a0af-7227c609697b/Hazbin%20Hotel%20S01e03%20Oeufs%20Brouill%C3%A9s.mp4',
+            VOSTFR: 'https://cold-na-phx-1.gofile.io/download/direct/9c175380-7011-41e5-8bcf-2778b985b67d/%5BVOSTFR%5DHazbin%20Hotel%20S01e03%20Oeufs%20Brouill%C3%A9s.mp4'
+          },
+          4: {
+            VF: 'https://cold4.gofile.io/download/direct/6187b010-4c33-4938-91ee-11eb68e2a288/Hazbin%20Hotel%20S01e04%20Mascarade.mp4',
+            VOSTFR: 'https://cold-na-phx-1.gofile.io/download/direct/74bce63b-9c1b-4a6d-8230-ee572424333f/%5BVOSTFR%5DHazbin%20Hotel%20S01e04%20Mascarade.mp4'
+          },
+          5: {
+            VF: 'https://cold2.gofile.io/download/direct/2ec7cfd9-29f4-4752-bd15-a5035c79ed03/Hazbin%20Hotel%20S01e05%20Lucifer%20Entre%20En%20Sc%C3%A8ne.mp4',
+            VOSTFR: 'https://cold-na-phx-1.gofile.io/download/direct/73583f43-07c8-4b97-8253-4055ba618655/%5BVOSTFR%5DHazbin%20Hotel%20S01e05%20Lucifer%20entre%20en%20sc%C3%A8ne.mp4'
+          },
+          6: {
+            VF: 'https://cold8.gofile.io/download/direct/b5d92f58-b8b4-48ec-9287-00a71453b43d/Hazbin%20Hotel%20S01e06%20Sur%20Les%20Chemins%20De%20La%20R%C3%A9demption.mp4',
+            VOSTFR: 'https://cold4.gofile.io/download/direct/8fccfa23-01d5-4de7-b367-16a79431319a/%5BVOSTFR%5DHazbin%20Hotel%20S01e06%20Sur%20Les%20Chemins%20De%20La%20R%C3%A9demption.mp4'
+          },
+          7: {
+            VF: 'https://cold8.gofile.io/download/direct/0580c875-640b-4c6a-9201-8987f383b31b/Hazbin%20Hotel%20S01e07%20Hello%20Rosie!.mp4',
+            VOSTFR: 'https://cold-na-phx-2.gofile.io/download/direct/02262a23-1f55-407c-884d-ea419d8134e3/%5BVOSTFR%5DHazbin%20Hotel%20S01e07%20Hello%20Rosie!.mp4'
+          },
+          8: {
+            VF: 'https://cold-na-phx-2.gofile.io/download/direct/4ff992e8-7d8d-4775-b762-b3d7f8e1a2a4/Hazbin%20Hotel%20S01e08%20Le%20grand%20final.mp4',
+            VOSTFR: 'https://cold8.gofile.io/download/direct/483a7d0f-71e6-4f25-9dea-fdfd861035c4/%5BVOSTFR%5DHazbin%20Hotel%20S01e08%20Le%20Grand%20Final.mp4'
+          }
         }
+      },
+      saison2: {
+        background: '1285870.jpg',
+        logo: 'videoframe_13152.png',
+        episodes: {
+          1: {
+            VF: '',
+            VOSTFR: ''
+          },
+          2: {
+            VF: '',
+            VOSTFR: ''
+          },
+          3: {
+            VF: '',
+            VOSTFR: ''
+          },
+          4: {
+            VF: '',
+            VOSTFR: ''
+          },
+          5: {
+            VF: '',
+            VOSTFR: ''
+          },
+          6: {
+            VF: '',
+            VOSTFR: ''
+          },
+          7: {
+            VF: '',
+            VOSTFR: ''
+          },
+          8: {
+            VF: '',
+            VOSTFR: ''
+          }
+        }
+      }
+    };
 
-        // Initialisation du lecteur pour le premier épisode et la langue VF
-        loadPlayer();
+    let currentSaison = 'saison1';
+    let currentLanguage = 'VF';
+    let currentEpisode = '1';
 
-        // Changer d'épisode
-        episodeSelect.addEventListener('change', () => {
-            currentEpisode = episodeSelect.value;
-            loadPlayer();
-        });
+    const videoTarget = document.getElementById('video-target');
+    const episodeSelect = document.getElementById('episode-select');
+    const toggleSaisonButton = document.getElementById('toggle-saison');
+    const toggleVersionButton = document.getElementById('toggle-version');
+    const logoImg = document.getElementById('logo-img');
 
-        // Changer de version (VF / VOSTFR)
-        toggleVersionButton.addEventListener('click', () => {
-            currentLanguage = currentLanguage === 'VF' ? 'VOSTFR' : 'VF';
-            toggleVersionButton.textContent = currentLanguage === 'VF' ? 'Changer en VOSTFR' : 'Changer en VF';
-            loadPlayer();
-        });
+    // Fonction pour charger la vidéo sélectionnée
+    function loadPlayer() {
+      const episode = videos[currentSaison].episodes[currentEpisode];
+      if (!episode) return console.error('Épisode non trouvé:', currentEpisode);
 
-        // Changer de lecteur
-        playerSelect.addEventListener('change', () => {
-            currentPlayer = playerSelect.value;
-            loadPlayer();
-        });
-    </script>
+      const src = episode[currentLanguage];
+      if (!src) {
+        videoTarget.innerHTML = `<p style="color:white;text-align:center">Vidéo non disponible pour cet épisode en ${currentLanguage}.</p>`;
+        return;
+      }
+
+      if (src.endsWith('.mp4')) {
+        videoTarget.innerHTML = `
+          <video controls width="100%" height="450" preload="metadata">
+            <source src="${src}" type="video/mp4">
+            Votre navigateur ne supporte pas la vidéo HTML5.
+          </video>`;
+      } else {
+        videoTarget.innerHTML = `<iframe src="${src}" width="100%" height="450" frameborder="0" allowfullscreen></iframe>`;
+      }
+    }
+
+    // Charger la liste des épisodes pour la saison courante
+    function loadEpisodes() {
+      const eps = videos[currentSaison].episodes;
+      const keys = Object.keys(eps);
+      episodeSelect.innerHTML = keys.map(ep => `<option value="${ep}">Épisode ${ep}</option>`).join('');
+      currentEpisode = keys[0];
+      episodeSelect.value = currentEpisode;
+    }
+
+    // Événement changement épisode
+    episodeSelect.addEventListener('change', () => {
+      currentEpisode = episodeSelect.value;
+      loadPlayer();
+    });
+
+    // Événement changement langue
+    toggleVersionButton.addEventListener('click', () => {
+      currentLanguage = currentLanguage === 'VF' ? 'VOSTFR' : 'VF';
+      toggleVersionButton.textContent = currentLanguage === 'VF' ? 'Changer en VOSTFR' : 'Changer en VF';
+      loadPlayer();
+    });
+
+    // Événement changement saison
+    toggleSaisonButton.addEventListener('click', () => {
+      currentSaison = currentSaison === 'saison1' ? 'saison2' : 'saison1';
+
+      logoImg.src = videos[currentSaison].logo;
+      document.body.style.backgroundImage = `url('${videos[currentSaison].background}')`;
+
+      toggleSaisonButton.textContent = currentSaison === 'saison1' ? 'Passer à la Saison 2' : 'Passer à la Saison 1';
+
+      loadEpisodes();
+      loadPlayer();
+
+      toggleVersionButton.textContent = currentLanguage === 'VF' ? 'Changer en VOSTFR' : 'Changer en VF';
+    });
+
+    // Initialisation quand la page est prête
+    window.addEventListener('DOMContentLoaded', () => {
+      logoImg.src = videos[currentSaison].logo;
+      document.body.style.backgroundImage = `url('${videos[currentSaison].background}')`;
+      toggleSaisonButton.textContent = 'Passer à la Saison 2';
+      toggleVersionButton.textContent = 'Changer en VOSTFR';
+
+      loadEpisodes();
+      loadPlayer();
+    });
+  </script>
 </body>
 
 </html>
