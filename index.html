@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hazbin Hotel</title>
+  <title>Hazbin Hotel & Helluva Boss</title>
   <style>
     @font-face {
       font-family: 'Gotham';
@@ -51,6 +51,10 @@
 
     .controls {
       margin-bottom: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
     }
 
     button,
@@ -61,7 +65,6 @@
       padding: 10px;
       font-size: 16px;
       cursor: pointer;
-      margin-right: 10px;
       border-radius: 4px;
       font-family: Gotham;
       transition: background-color 0.3s;
@@ -72,7 +75,7 @@
       background-color: #C73659;
     }
 
-    /* Saison 2 Theme */
+    /* Saison 2 Theme - Rétabli aux couleurs originales */
     body.saison2 {
       background-image: url('1285870.jpg');
     }
@@ -89,6 +92,61 @@
     body.saison2 button:hover,
     body.saison2 select:hover {
       background-color: #1a1679;
+    }
+
+    /* Helluva Boss Themes */
+    body.helluva-saison0 {
+      background-image: url('https://images6.alphacoders.com/112/1122543.jpg');
+    }
+
+    body.helluva-saison0 .content-box {
+      background-color: rgba(21, 21, 21, 0.8);
+    }
+
+    body.helluva-saison0 button,
+    body.helluva-saison0 select {
+      background-color: #5D3A9B;
+    }
+
+    body.helluva-saison0 button:hover,
+    body.helluva-saison0 select:hover {
+      background-color: #7A5BAC;
+    }
+
+    body.helluva-saison1 {
+      background-image: url('https://images2.alphacoders.com/123/1237913.png');
+    }
+
+    body.helluva-saison1 .content-box {
+      background-color: rgba(30, 15, 60, 0.69);
+    }
+
+    body.helluva-saison1 button,
+    body.helluva-saison1 select {
+      background-color: #9B5DE5;
+    }
+
+    body.helluva-saison1 button:hover,
+    body.helluva-saison1 select:hover {
+      background-color: #7A5BAC;
+    }
+
+    body.helluva-saison2 {
+      background-image: url('https://images5.alphacoders.com/128/1285483.jpg');
+    }
+
+    body.helluva-saison2 .content-box {
+      background-color: rgba(60, 15, 30, 0.69);
+    }
+
+    body.helluva-saison2 button,
+    body.helluva-saison2 select {
+      background-color: #E59BD5;
+    }
+
+    body.helluva-saison2 button:hover,
+    body.helluva-saison2 select:hover {
+      background-color: #AC5B9B;
     }
 
     /* Media Queries */
@@ -133,182 +191,306 @@
     <div class="content-box">
       <img src="Hazbin-Hotel-Logo.png" alt="Hazbin Hotel Logo" class="logo" id="logo-img">
       <div class="controls">
+        <select id="serie-select">
+          <option value="hazbin">Hazbin Hotel</option>
+          <option value="helluva">Helluva Boss</option>
+        </select>
+        <select id="saison-select"></select>
         <select id="episode-select"></select>
         <button id="toggle-version">Changer en VOSTFR</button>
-        <button id="toggle-saison">Passer à la Saison 2</button>
       </div>
       <div id="video-target"></div>
     </div>
   </div>
 
   <script>
-    // Données combinées pour S1 et S2
+    // Données combinées pour toutes les séries et saisons
     const videos = {
-      saison1: {
-        background: 'https://images2.alphacoders.com/134/1348359.jpeg',
-        logo: 'Hazbin-Hotel-Logo.png',
-        episodes: {
+      hazbin: {
+        name: "Hazbin Hotel",
+        saisons: {
           1: {
-            VF: 'https://cold8.gofile.io/download/direct/f813c55e-facf-4e74-b291-bad048721f64/Hazbin%20Hotel%20S01e01%20Histoire%20De%20L’Enfer.mp4',
-            VOSTFR: 'https://cold2.gofile.io/download/direct/1e24501c-0f30-4925-8a7f-713020f8af63/%5BVOSTFR%5DHazbin%20Hotel%20S01e01%20Histoire%20De%20L%E2%80%99Enfer.mp4'
+            background: 'https://images2.alphacoders.com/134/1348359.jpeg',
+            logo: 'Hazbin-Hotel-Logo.png',
+            episodes: {
+              1: {
+                VF: 'https://cold8.gofile.io/download/direct/f813c55e-facf-4e74-b291-bad048721f64/Hazbin%20Hotel%20S01e01%20Histoire%20De%20L%E2%80%99Enfer.mp4',
+                VOSTFR: 'https://cold2.gofile.io/download/direct/1e24501c-0f30-4925-8a7f-713020f8af63/%5BVOSTFR%5DHazbin%20Hotel%20S01e01%20Histoire%20De%20L%E2%80%99Enfer.mp4'
+              },
+              2: {
+                VF: 'https://cold-na-phx-2.gofile.io/download/direct/68c3dbb5-3405-4163-91c9-3311dbc4366a/Hazbin%20Hotel%20S01e02%20Radio%20Contre%20Vid%C3%A9o.mp4',
+                VOSTFR: 'https://cold8.gofile.io/download/direct/175be20b-b002-42cd-b7b1-4afc27d0ac45/%5BVOSTFR%5DHazbin%20Hotel%20S01e02%20Radio%20Contre%20Vid%C3%A9o.mp4'
+              },
+              3: {
+                VF: 'https://cold8.gofile.io/download/direct/321efd47-526d-46eb-a0af-7227c609697b/Hazbin%20Hotel%20S01e03%20Oeufs%20Brouill%C3%A9s.mp4',
+                VOSTFR: 'https://cold-na-phx-1.gofile.io/download/direct/9c175380-7011-41e5-8bcf-2778b985b67d/%5BVOSTFR%5DHazbin%20Hotel%20S01e03%20Oeufs%20Brouill%C3%A9s.mp4'
+              },
+              4: {
+                VF: 'https://cold4.gofile.io/download/direct/6187b010-4c33-4938-91ee-11eb68e2a288/Hazbin%20Hotel%20S01e04%20Mascarade.mp4',
+                VOSTFR: 'https://cold-na-phx-1.gofile.io/download/direct/74bce63b-9c1b-4a6d-8230-ee572424333f/%5BVOSTFR%5DHazbin%20Hotel%20S01e04%20Mascarade.mp4'
+              },
+              5: {
+                VF: 'https://cold2.gofile.io/download/direct/2ec7cfd9-29f4-4752-bd15-a5035c79ed03/Hazbin%20Hotel%20S01e05%20Lucifer%20Entre%20En%20Sc%C3%A8ne.mp4',
+                VOSTFR: 'https://cold-na-phx-1.gofile.io/download/direct/73583f43-07c8-4b97-8253-4055ba618655/%5BVOSTFR%5DHazbin%20Hotel%20S01e05%20Lucifer%20entre%20en%20sc%C3%A8ne.mp4'
+              },
+              6: {
+                VF: 'https://cold8.gofile.io/download/direct/b5d92f58-b8b4-48ec-9287-00a71453b43d/Hazbin%20Hotel%20S01e06%20Sur%20Les%20Chemins%20De%20La%20R%C3%A9demption.mp4',
+                VOSTFR: 'https://cold4.gofile.io/download/direct/8fccfa23-01d5-4de7-b367-16a79431319a/%5BVOSTFR%5DHazbin%20Hotel%20S01e06%20Sur%20Les%20Chemins%20De%20La%20R%C3%A9demption.mp4'
+              },
+              7: {
+                VF: 'https://cold8.gofile.io/download/direct/0580c875-640b-4c6a-9201-8987f383b31b/Hazbin%20Hotel%20S01e07%20Hello%20Rosie!.mp4',
+                VOSTFR: 'https://cold-na-phx-2.gofile.io/download/direct/02262a23-1f55-407c-884d-ea419d8134e3/%5BVOSTFR%5DHazbin%20Hotel%20S01e07%20Hello%20Rosie!.mp4'
+              },
+              8: {
+                VF: 'https://cold-na-phx-2.gofile.io/download/direct/4ff992e8-7d8d-4775-b762-b3d7f8e1a2a4/Hazbin%20Hotel%20S01e08%20Le%20grand%20final.mp4',
+                VOSTFR: 'https://cold8.gofile.io/download/direct/483a7d0f-71e6-4f25-9dea-fdfd861035c4/%5BVOSTFR%5DHazbin%20Hotel%20S01e08%20Le%20Grand%20Final.mp4'
+              }
+            }
           },
           2: {
-            VF: 'https://cold-na-phx-2.gofile.io/download/direct/68c3dbb5-3405-4163-91c9-3311dbc4366a/Hazbin%20Hotel%20S01e02%20Radio%20Contre%20Vid%C3%A9o.mp4',
-            VOSTFR: 'https://cold8.gofile.io/download/direct/175be20b-b002-42cd-b7b1-4afc27d0ac45/%5BVOSTFR%5DHazbin%20Hotel%20S01e02%20Radio%20Contre%20Vid%C3%A9o.mp4'
-          },
-          3: {
-            VF: 'https://cold8.gofile.io/download/direct/321efd47-526d-46eb-a0af-7227c609697b/Hazbin%20Hotel%20S01e03%20Oeufs%20Brouill%C3%A9s.mp4',
-            VOSTFR: 'https://cold-na-phx-1.gofile.io/download/direct/9c175380-7011-41e5-8bcf-2778b985b67d/%5BVOSTFR%5DHazbin%20Hotel%20S01e03%20Oeufs%20Brouill%C3%A9s.mp4'
-          },
-          4: {
-            VF: 'https://cold4.gofile.io/download/direct/6187b010-4c33-4938-91ee-11eb68e2a288/Hazbin%20Hotel%20S01e04%20Mascarade.mp4',
-            VOSTFR: 'https://cold-na-phx-1.gofile.io/download/direct/74bce63b-9c1b-4a6d-8230-ee572424333f/%5BVOSTFR%5DHazbin%20Hotel%20S01e04%20Mascarade.mp4'
-          },
-          5: {
-            VF: 'https://cold2.gofile.io/download/direct/2ec7cfd9-29f4-4752-bd15-a5035c79ed03/Hazbin%20Hotel%20S01e05%20Lucifer%20Entre%20En%20Sc%C3%A8ne.mp4',
-            VOSTFR: 'https://cold-na-phx-1.gofile.io/download/direct/73583f43-07c8-4b97-8253-4055ba618655/%5BVOSTFR%5DHazbin%20Hotel%20S01e05%20Lucifer%20entre%20en%20sc%C3%A8ne.mp4'
-          },
-          6: {
-            VF: 'https://cold8.gofile.io/download/direct/b5d92f58-b8b4-48ec-9287-00a71453b43d/Hazbin%20Hotel%20S01e06%20Sur%20Les%20Chemins%20De%20La%20R%C3%A9demption.mp4',
-            VOSTFR: 'https://cold4.gofile.io/download/direct/8fccfa23-01d5-4de7-b367-16a79431319a/%5BVOSTFR%5DHazbin%20Hotel%20S01e06%20Sur%20Les%20Chemins%20De%20La%20R%C3%A9demption.mp4'
-          },
-          7: {
-            VF: 'https://cold8.gofile.io/download/direct/0580c875-640b-4c6a-9201-8987f383b31b/Hazbin%20Hotel%20S01e07%20Hello%20Rosie!.mp4',
-            VOSTFR: 'https://cold-na-phx-2.gofile.io/download/direct/02262a23-1f55-407c-884d-ea419d8134e3/%5BVOSTFR%5DHazbin%20Hotel%20S01e07%20Hello%20Rosie!.mp4'
-          },
-          8: {
-            VF: 'https://cold-na-phx-2.gofile.io/download/direct/4ff992e8-7d8d-4775-b762-b3d7f8e1a2a4/Hazbin%20Hotel%20S01e08%20Le%20grand%20final.mp4',
-            VOSTFR: 'https://cold8.gofile.io/download/direct/483a7d0f-71e6-4f25-9dea-fdfd861035c4/%5BVOSTFR%5DHazbin%20Hotel%20S01e08%20Le%20Grand%20Final.mp4'
+            background: '1285870.jpg',
+            logo: 'videoframe_13152.png',
+            episodes: {
+              1: { VF: '', VOSTFR: '' },
+              2: { VF: '', VOSTFR: '' },
+              3: { VF: '', VOSTFR: '' },
+              4: { VF: '', VOSTFR: '' },
+              5: { VF: '', VOSTFR: '' },
+              6: { VF: '', VOSTFR: '' },
+              7: { VF: '', VOSTFR: '' },
+              8: { VF: '', VOSTFR: '' }
+            }
           }
         }
       },
-      saison2: {
-        background: '1285870.jpg',
-        logo: 'videoframe_13152.png',
-        episodes: {
+      helluva: {
+        name: "Helluva Boss",
+        // Indicateur pour masquer le bouton VOSTFR
+        hideVostfrButton: true,
+        saisons: {
+          0: {
+            background: 'https://images5.alphacoders.com/124/1246054.jpg',
+            logo: 'Helluva_Boss_transparent_logo.webp',
+            episodes: {
+              1: {
+                VF: 'https://store-eu-par-1.gofile.io/download/direct/9999bcf7-ccf6-4c61-990d-d8e914f809db/clean_S01E001_MISSION%20Z%C3%89RO.mp4',
+                VOSTFR: 'https://example.com/helluva/s0e1-vostfr.mp4'
+              }
+            }
+          },
           1: {
-            VF: '',
-            VOSTFR: ''
+            background: 'https://images5.alphacoders.com/124/1246054.jpg',
+            logo: 'Helluva_Boss_transparent_logo.webp',
+            episodes: {
+              1: {
+                VF: 'https://store-na-phx-1.gofile.io/download/direct/bbe8afff-bdff-4330-9a9c-a45f0dc94adc/clean_S02E001_Une%20famille%20sanguinaire.mp4',
+                VOSTFR: 'https://example.com/helluva/s1e1-vostfr.mp4'
+              },
+              2: {
+                VF: 'https://store-na-phx-2.gofile.io/download/direct/8bb09f6d-0a54-4f4c-9b38-36d851538297/clean_S02E002_Loo%20Loo%20Land.mp4',
+                VOSTFR: 'https://example.com/helluva/s1e2-vostfr.mp4'
+              },
+              3: {
+                VF: 'https://store-na-phx-2.gofile.io/download/direct/2e66aa41-a050-4388-a360-d6b7fbc9e8b8/clean_S02E003_Duel%20de%20d%C3%A9mons.mp4',
+                VOSTFR: 'https://example.com/helluva/s1e3-vostfr.mp4'
+              },
+              4: {
+                VF: 'https://store3.gofile.io/download/direct/df7e2602-c7f0-4a8b-b687-4edc8605ddf4/clean_S02E004_CHERUB.mp4',
+                VOSTFR: 'https://example.com/helluva/s1e4-vostfr.mp4'
+              },
+              5: {
+                VF: 'https://store3.gofile.io/download/direct/8fb15d75-8942-4b41-8954-84ec5b577959/clean_S02E005_Le%20Festival%20de%20la%20Lune%20des%20Moissons.mp4',
+                VOSTFR: 'https://example.com/helluva/s1e5-vostfr.mp4'
+              },
+              6: {
+                VF: 'https://store8.gofile.io/download/direct/c0962e6d-b02c-4bf6-9613-36e5788f17c8/clean_S02E006_Chasseurs%20de%20d%C3%A9mons.mp4',
+                VOSTFR: 'https://example.com/helluva/s1e6-vostfr.mp4'
+              },
+              7: {
+                VF: 'https://store-na-phx-1.gofile.io/download/direct/4b31c74a-0e3d-46d7-abf9-994300f88ed6/clean_S02E007_Chez%20Ozzie.mp4',
+                VOSTFR: 'https://example.com/helluva/s1e7-vostfr.mp4'
+              },
+              8: {
+                VF: 'https://store-na-phx-1.gofile.io/download/direct/2aa80aca-61d5-4305-ad61-5f823f9904e9/clean_S02E008_Queen%20Bee.mp4',
+                VOSTFR: 'https://example.com/helluva/s1e8-vostfr.mp4'
+              }
+            }
           },
           2: {
-            VF: '',
-            VOSTFR: ''
-          },
-          3: {
-            VF: '',
-            VOSTFR: ''
-          },
-          4: {
-            VF: '',
-            VOSTFR: ''
-          },
-          5: {
-            VF: '',
-            VOSTFR: ''
-          },
-          6: {
-            VF: '',
-            VOSTFR: ''
-          },
-          7: {
-            VF: '',
-            VOSTFR: ''
-          },
-          8: {
-            VF: '',
-            VOSTFR: ''
+            background: 'https://images5.alphacoders.com/124/1246054.jpg',
+            logo: 'Helluva_Boss_transparent_logo.webp',
+            episodes: {
+              1: {
+                VF: 'https://store-na-phx-1.gofile.io/download/direct/848f82a1-b73c-4bab-a9f9-3db8e0424a2d/clean_S03E001_Le%20Cirque.mp4',
+                VOSTFR: 'https://example.com/helluva/s2e1-vostfr.mp4'
+              },
+              2: {
+                VF: 'https://store3.gofile.io/download/direct/bb074088-487e-4123-adde-a3403ef03039/clean_S03E002_Sous%20les%20%C3%A9toiles.mp4',
+                VOSTFR: 'https://example.com/helluva/s2e2-vostfr.mp4'
+              },
+              3: {
+                VF: 'https://store8.gofile.io/download/direct/0e081be0-dc6f-4a58-ab00-7524a1ef74fe/clean_S03E003_Un%20ex%20pour%20deux.mp4',
+                VOSTFR: 'https://example.com/helluva/s2e3-vostfr.mp4'
+              },
+              4: {
+                VF: 'https://store3.gofile.io/download/direct/0c788de2-780d-4d38-8516-c99d43ff810f/clean_S03E004_Un%20air%20de%20western.mp4',
+                VOSTFR: 'https://example.com/helluva/s2e4-vostfr.mp4'
+              },
+              5: {
+                VF: 'https://store8.gofile.io/download/direct/7785e2c0-b5f8-4d7a-823f-50ffbf504595/clean_S03E005_Un%20Camp%20dEnfer.mp4',
+                VOSTFR: 'https://example.com/helluva/s2e5-vostfr.mp4'
+              },
+              6: {
+                VF: 'https://store3.gofile.io/download/direct/38b423ae-54aa-4ed7-99b2-474157dc77bd/clean_S03E006_Oups.mp4',
+                VOSTFR: 'https://example.com/helluva/s2e6-vostfr.mp4'
+              },
+              7: {
+                VF: 'https://store3.gofile.io/download/direct/91fdbacd-14d9-4522-86b3-0bc22e54ecac/clean_S03E007_%C3%87a%20cest%20du%20spectacle.mp4',
+                VOSTFR: 'https://example.com/helluva/s2e7-vostfr.mp4'
+              },
+              8: {
+                VF: 'https://store9.gofile.io/download/direct/d7778e78-4996-4f40-a32a-1e8665235a21/clean_S03E008_La%20Pleine%20lune.mp4',
+                VOSTFR: 'https://example.com/helluva/s2e8-vostfr.mp4'
+              },
+              9: {
+                VF: 'https://store-na-phx-1.gofile.io/download/direct/bb5bcbf3-57e8-4d83-bb25-e7678fcb7826/clean_S03E009_La%20tourn%C3%A9e%20des%20excuses.mp4',
+                VOSTFR: 'https://example.com/helluva/s2e9-vostfr.mp4'
+              },
+              10: {
+                VF: 'https://store9.gofile.io/download/direct/49d87794-eb57-4b5d-a79c-d462f805db54/clean_S03E010_Baise%20O%20S%20Fant%C3%B4mes.mp4',
+                VOSTFR: 'https://example.com/helluva/s2e10-vostfr.mp4'
+              },
+              11: {
+                VF: 'https://store-na-phx-1.gofile.io/download/direct/251a921a-e373-49b3-b850-f3341176c33c/clean_S03E011_Le%20grand%20ma%C3%AEtre.mp4',
+                VOSTFR: 'https://example.com/helluva/s2e11-vostfr.mp4'
+              },
+              12: {
+                VF: 'https://store-na-phx-2.gofile.io/download/direct/305a3f76-73ca-43c5-ad4a-02a253fc8a46/clean_S03E012_La%20f%C3%AAte%20des%20P%C3%A9ch%C3%A9s.mp4',
+                VOSTFR: 'https://example.com/helluva/s2e12-vostfr.mp4'
+              }
+            }
           }
         }
       }
     };
 
-   let currentSaison = 'saison1';
-  let currentLanguage = 'VF';
-  let currentEpisode = '1';
+    let currentSerie = 'hazbin';
+    let currentSaison = '1';
+    let currentLanguage = 'VF';
+    let currentEpisode = '1';
 
-  const videoTarget = document.getElementById('video-target');
-  const episodeSelect = document.getElementById('episode-select');
-  const toggleSaisonButton = document.getElementById('toggle-saison');
-  const toggleVersionButton = document.getElementById('toggle-version');
-  const logoImg = document.getElementById('logo-img');
+    const videoTarget = document.getElementById('video-target');
+    const serieSelect = document.getElementById('serie-select');
+    const saisonSelect = document.getElementById('saison-select');
+    const episodeSelect = document.getElementById('episode-select');
+    const toggleVersionButton = document.getElementById('toggle-version');
+    const logoImg = document.getElementById('logo-img');
 
-  // Fonction pour charger la vidéo sélectionnée
-  function loadPlayer() {
-    const episode = videos[currentSaison].episodes[currentEpisode];
-    if (!episode) return console.error('Épisode non trouvé:', currentEpisode);
+    // Fonction pour charger la vidéo sélectionnée
+    function loadPlayer() {
+      const episode = videos[currentSerie].saisons[currentSaison].episodes[currentEpisode];
+      if (!episode) return console.error('Épisode non trouvé:', currentEpisode);
 
-    const src = episode[currentLanguage];
-    if (!src) {
-      videoTarget.innerHTML = `<p style="color:white;text-align:center">Vidéo non disponible pour cet épisode en ${currentLanguage}.</p>`;
-      return;
+      const src = episode[currentLanguage];
+      if (!src) {
+        videoTarget.innerHTML = `<p style="color:white;text-align:center">Vidéo non disponible pour cet épisode en ${currentLanguage}.</p>`;
+        return;
+      }
+
+      if (src.endsWith('.mp4')) {
+        videoTarget.innerHTML = `
+          <video controls width="100%" height="450" preload="metadata">
+            <source src="${src}" type="video/mp4">
+            Votre navigateur ne supporte pas la vidéo HTML5.
+          </video>`;
+      } else {
+        videoTarget.innerHTML = `<iframe src="${src}" width="100%" height="450" frameborder="0" allowfullscreen></iframe>`;
+      }
     }
 
-    if (src.endsWith('.mp4')) {
-      videoTarget.innerHTML = `
-        <video controls width="100%" height="450" preload="metadata">
-          <source src="${src}" type="video/mp4">
-          Votre navigateur ne supporte pas la vidéo HTML5.
-        </video>`;
-    } else {
-      videoTarget.innerHTML = `<iframe src="${src}" width="100%" height="450" frameborder="0" allowfullscreen></iframe>`;
+    // Charger la liste des saisons pour la série courante
+    function loadSaisons() {
+      const saisons = videos[currentSerie].saisons;
+      const keys = Object.keys(saisons);
+      saisonSelect.innerHTML = keys.map(s => `<option value="${s}">Saison ${s}</option>`).join('');
+      currentSaison = keys[0];
+      saisonSelect.value = currentSaison;
+      loadEpisodes();
     }
-  }
 
-  // Charger la liste des épisodes pour la saison courante
-  function loadEpisodes() {
-    const eps = videos[currentSaison].episodes;
-    const keys = Object.keys(eps);
-    episodeSelect.innerHTML = keys.map(ep => `<option value="${ep}">Épisode ${ep}</option>`).join('');
-    currentEpisode = keys[0];
-    episodeSelect.value = currentEpisode;
-  }
+    // Charger la liste des épisodes pour la saison courante
+    function loadEpisodes() {
+      const eps = videos[currentSerie].saisons[currentSaison].episodes;
+      const keys = Object.keys(eps);
+      episodeSelect.innerHTML = keys.map(ep => `<option value="${ep}">Épisode ${ep}</option>`).join('');
+      currentEpisode = keys[0];
+      episodeSelect.value = currentEpisode;
+    }
 
-  // Événement changement épisode
-  episodeSelect.addEventListener('change', () => {
-    currentEpisode = episodeSelect.value;
-    loadPlayer();
-  });
+    // Mettre à jour l'interface en fonction de la série et saison sélectionnées
+    function updateInterface() {
+      const serieData = videos[currentSerie];
+      const saisonData = serieData.saisons[currentSaison];
+      
+      // Mettre à jour les classes CSS
+      document.body.classList.remove('saison1', 'saison2', 
+                                    'helluva-saison0', 'helluva-saison1', 'helluva-saison2');
+      
+      if (currentSerie === 'hazbin') {
+        document.body.classList.add(`saison${currentSaison}`);
+      } else {
+        document.body.classList.add(`${currentSerie}-saison${currentSaison}`);
+      }
+      
+      // Mettre à jour l'arrière-plan et le logo
+      logoImg.src = saisonData.logo;
+      document.body.style.backgroundImage = `url('${saisonData.background}')`;
+      
+      // Afficher ou masquer le bouton VOSTFR selon la série
+      if (serieData.hideVostfrButton) {
+        toggleVersionButton.style.display = 'none';
+      } else {
+        toggleVersionButton.style.display = 'block';
+      }
+      
+      // Charger le lecteur vidéo
+      loadPlayer();
+    }
 
-  // Événement changement langue
-  toggleVersionButton.addEventListener('click', () => {
-    currentLanguage = currentLanguage === 'VF' ? 'VOSTFR' : 'VF';
-    toggleVersionButton.textContent = currentLanguage === 'VF' ? 'Changer en VOSTFR' : 'Changer en VF';
-    loadPlayer();
-  });
+    // Événement changement de série
+    serieSelect.addEventListener('change', () => {
+      currentSerie = serieSelect.value;
+      loadSaisons();
+      updateInterface();
+    });
 
-  // Événement changement saison
-  toggleSaisonButton.addEventListener('click', () => {
-    currentSaison = currentSaison === 'saison1' ? 'saison2' : 'saison1';
+    // Événement changement de saison
+    saisonSelect.addEventListener('change', () => {
+      currentSaison = saisonSelect.value;
+      loadEpisodes();
+      updateInterface();
+    });
 
-    // 🔧 Mise à jour des classes CSS saisonnières
-    document.body.classList.remove('saison1', 'saison2');
-    document.body.classList.add(currentSaison);
+    // Événement changement épisode
+    episodeSelect.addEventListener('change', () => {
+      currentEpisode = episodeSelect.value;
+      loadPlayer();
+    });
 
-    // Mise à jour visuelle
-    logoImg.src = videos[currentSaison].logo;
-    document.body.style.backgroundImage = `url('${videos[currentSaison].background}')`;
+    // Événement changement langue
+    toggleVersionButton.addEventListener('click', () => {
+      currentLanguage = currentLanguage === 'VF' ? 'VOSTFR' : 'VF';
+      toggleVersionButton.textContent = currentLanguage === 'VF' ? 'Changer en VOSTFR' : 'Changer en VF';
+      loadPlayer();
+    });
 
-    toggleSaisonButton.textContent = currentSaison === 'saison1' ? 'Passer à la Saison 2' : 'Passer à la Saison 1';
-
-    loadEpisodes();
-    loadPlayer();
-
-    toggleVersionButton.textContent = currentLanguage === 'VF' ? 'Changer en VOSTFR' : 'Changer en VF';
-  });
-
-  // Initialisation
-  window.addEventListener('DOMContentLoaded', () => {
-    document.body.classList.add(currentSaison); // 🔧 Appliquer la classe saison initiale
-    logoImg.src = videos[currentSaison].logo;
-    document.body.style.backgroundImage = `url('${videos[currentSaison].background}')`;
-
-    toggleSaisonButton.textContent = 'Passer à la Saison 2';
-    toggleVersionButton.textContent = 'Changer en VOSTFR';
-
-    loadEpisodes();
-    loadPlayer();
-  });
-</script>
+    // Initialisation
+    window.addEventListener('DOMContentLoaded', () => {
+      loadSaisons();
+      updateInterface();
+      toggleVersionButton.textContent = 'Changer en VOSTFR';
+    });
+  </script>
 </body>
 
 </html>
