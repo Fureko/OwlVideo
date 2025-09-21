@@ -1,195 +1,133 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hazbin Hotel & Helluva Boss</title>
-  <style>
-    @font-face {
-      font-family: 'Gotham';
-      src: url('fonts/Gotham.woff2') format('woff2'),
-        url('fonts/Gotham.woff') format('woff');
-      font-weight: normal;
-      font-style: normal;
-    }
+  <title>Hazbin & Helluva Streaming</title>
+  
+  <!-- Polices -->
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
 
+  <style>
     body {
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      color: #EEEEEE;
-      font-family: Gotham;
       margin: 0;
       padding: 0;
+      font-family: 'Gotham', sans-serif;
+      background: #0a0a0a;
+      color: #f5f5f5;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header {
+      text-align: center;
+      padding: 20px;
+      background: linear-gradient(to right, #1a0006, #33000f);
+      border-bottom: 1px solid #4a1c1c;
+    }
+
+    header h1 {
+      font-family: 'Cinzel', serif;
+      font-size: 2rem;
+      color: #d4b483;
+      letter-spacing: 2px;
+      margin: 0;
+    }
+
+    .container {
+      flex: 1;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
-      transition: all 0.6s ease;
+      padding: 20px;
     }
 
     .content-box {
-      background-color: rgba(21, 21, 21, 0.8);
-      border-radius: 8px;
-      padding: 20px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-      max-width: 800px;
+      background: rgba(20, 20, 20, 0.9);
+      border: 1px solid #4a1c1c;
+      border-radius: 10px;
+      padding: 30px;
+      max-width: 850px;
       width: 100%;
       text-align: center;
-      font-size: 30px;
-      box-sizing: border-box;
-      transition: all 0.6s ease;
+      box-shadow: 0 0 20px rgba(255, 0, 50, 0.2);
+      animation: fadein 1.5s ease;
     }
 
-    .logo {
-      width: 500px;
-      height: auto;
-      margin-bottom: 20px;
-      transition: all 0.6s ease;
+    @keyframes fadein {
+      from { opacity: 0; transform: translateY(15px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
+
+.logo {
+  display: block;
+  margin: 0 auto 25px;
+  max-width: 300px;   /* taille maximale sur desktop */
+  width: 100%;        /* prend toute la largeur dispo */
+  height: auto;       /* garde les proportions */
+}
 
     .controls {
       margin-bottom: 20px;
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 10px;
+      gap: 12px;
     }
 
-    button,
-    select {
-      background-color: #A91D3A;
-      color: #EEEEEE;
-      border: none;
-      padding: 10px;
-      font-size: 16px;
+    select, button {
+      background: #1a0006;
+      color: #d4b483;
+      border: 1px solid #4a1c1c;
+      padding: 10px 16px;
+      font-size: 15px;
+      border-radius: 6px;
       cursor: pointer;
-      border-radius: 4px;
-      font-family: Gotham;
-      transition: background-color 0.3s;
+      transition: 0.3s ease;
+      font-family: 'Gotham', sans-serif;
     }
 
-    button:hover,
-    select:hover {
-      background-color: #C73659;
+    select:hover, button:hover {
+      background: #33000f;
+      border-color: #d4b483;
+      color: #fff;
     }
 
-    /* Saison 2 Theme - Rétabli aux couleurs originales */
-    body.saison2 {
-      background-image: url('1285870.jpg');
+    #video-target {
+      margin-top: 20px;
     }
 
-    body.saison2 .content-box {
-      background-color: rgba(13, 10, 47, 0.69);
+    footer {
+      text-align: center;
+      padding: 15px;
+      background: #1a0006;
+      font-size: 13px;
+      border-top: 1px solid #4a1c1c;
     }
 
-    body.saison2 button,
-    body.saison2 select {
-      background-color: rgb(77, 164, 178);
+    footer p {
+      margin: 0;
+      color: #8a6f6f;
     }
 
-    body.saison2 button:hover,
-    body.saison2 select:hover {
-      background-color: #1a1679;
-    }
-
-    /* Helluva Boss Themes */
-    body.helluva-saison0 {
-      background-image: url('https://images6.alphacoders.com/112/1122543.jpg');
-    }
-
-    body.helluva-saison0 .content-box {
-      background-color: rgba(21, 21, 21, 0.8);
-    }
-
-    body.helluva-saison0 button,
-    body.helluva-saison0 select {
-      background-color: #5D3A9B;
-    }
-
-    body.helluva-saison0 button:hover,
-    body.helluva-saison0 select:hover {
-      background-color: #7A5BAC;
-    }
-
-    body.helluva-saison1 {
-      background-image: url('https://images2.alphacoders.com/123/1237913.png');
-    }
-
-    body.helluva-saison1 .content-box {
-      background-color: rgba(30, 15, 60, 0.69);
-    }
-
-    body.helluva-saison1 button,
-    body.helluva-saison1 select {
-      background-color: #9B5DE5;
-    }
-
-    body.helluva-saison1 button:hover,
-    body.helluva-saison1 select:hover {
-      background-color: #7A5BAC;
-    }
-
-    body.helluva-saison2 {
-      background-image: url('https://images5.alphacoders.com/128/1285483.jpg');
-    }
-
-    body.helluva-saison2 .content-box {
-      background-color: rgba(60, 15, 30, 0.69);
-    }
-
-    body.helluva-saison2 button,
-    body.helluva-saison2 select {
-      background-color: #E59BD5;
-    }
-
-    body.helluva-saison2 button:hover,
-    body.helluva-saison2 select:hover {
-      background-color: #AC5B9B;
-    }
-
-    /* Media Queries */
     @media (max-width: 768px) {
-      .logo {
-        width: 100%;
-      }
-
-      .content-box {
-        font-size: 24px;
-        padding: 15px;
-      }
-
-      button,
-      select {
-        font-size: 14px;
-        padding: 8px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .logo {
-        width: 200px;
-      }
-
-      .content-box {
-        font-size: 18px;
-        padding: 10px;
-      }
-
-      button,
-      select {
-        font-size: 12px;
-        padding: 6px;
-      }
+      header h1 { font-size: 1.5rem; }
+      .logo { max-width: 200px; }
+      select, button { font-size: 13px; padding: 8px 12px; }
     }
   </style>
 </head>
 
-<body class="saison1" style="background-image: url('https://images2.alphacoders.com/134/1348359.jpeg')">
+<body>
+  <header>
+    <h1>Hazbin Hotel & Helluva Boss</h1>
+  </header>
+
   <div class="container">
     <div class="content-box">
       <img src="Hazbin-Hotel-Logo.png" alt="Hazbin Hotel Logo" class="logo" id="logo-img">
+
       <div class="controls">
         <select id="serie-select">
           <option value="hazbin">Hazbin Hotel</option>
@@ -199,10 +137,10 @@
         <select id="episode-select"></select>
         <button id="toggle-version">Changer en VOSTFR</button>
       </div>
+
       <div id="video-target"></div>
     </div>
   </div>
-
   <script>
     // Données combinées pour toutes les séries et saisons
     const videos = {
@@ -374,7 +312,7 @@
       }
     };
 
-    let currentSerie = 'hazbin';
+  let currentSerie = 'hazbin';
     let currentSaison = '1';
     let currentLanguage = 'VF';
     let currentEpisode = '1';
@@ -386,14 +324,13 @@
     const toggleVersionButton = document.getElementById('toggle-version');
     const logoImg = document.getElementById('logo-img');
 
-    // Fonction pour charger la vidéo sélectionnée
     function loadPlayer() {
       const episode = videos[currentSerie].saisons[currentSaison].episodes[currentEpisode];
-      if (!episode) return console.error('Épisode non trouvé:', currentEpisode);
+      if (!episode) return;
 
       const src = episode[currentLanguage];
       if (!src) {
-        videoTarget.innerHTML = `<p style="color:white;text-align:center">Vidéo non disponible pour cet épisode en ${currentLanguage}.</p>`;
+        videoTarget.innerHTML = `<p style="color:#d4b483;text-align:center">Vidéo non disponible en ${currentLanguage}.</p>`;
         return;
       }
 
@@ -401,14 +338,12 @@
         videoTarget.innerHTML = `
           <video controls width="100%" height="450" preload="metadata">
             <source src="${src}" type="video/mp4">
-            Votre navigateur ne supporte pas la vidéo HTML5.
           </video>`;
       } else {
         videoTarget.innerHTML = `<iframe src="${src}" width="100%" height="450" frameborder="0" allowfullscreen></iframe>`;
       }
     }
 
-    // Charger la liste des saisons pour la série courante
     function loadSaisons() {
       const saisons = videos[currentSerie].saisons;
       const keys = Object.keys(saisons);
@@ -418,7 +353,6 @@
       loadEpisodes();
     }
 
-    // Charger la liste des épisodes pour la saison courante
     function loadEpisodes() {
       const eps = videos[currentSerie].saisons[currentSaison].episodes;
       const keys = Object.keys(eps);
@@ -427,64 +361,44 @@
       episodeSelect.value = currentEpisode;
     }
 
-    // Mettre à jour l'interface en fonction de la série et saison sélectionnées
     function updateInterface() {
       const serieData = videos[currentSerie];
       const saisonData = serieData.saisons[currentSaison];
       
-      // Mettre à jour les classes CSS
-      document.body.classList.remove('saison1', 'saison2', 
-                                    'helluva-saison0', 'helluva-saison1', 'helluva-saison2');
-      
-      if (currentSerie === 'hazbin') {
-        document.body.classList.add(`saison${currentSaison}`);
-      } else {
-        document.body.classList.add(`${currentSerie}-saison${currentSaison}`);
-      }
-      
-      // Mettre à jour l'arrière-plan et le logo
       logoImg.src = saisonData.logo;
       document.body.style.backgroundImage = `url('${saisonData.background}')`;
-      
-      // Afficher ou masquer le bouton VOSTFR selon la série
+
       if (serieData.hideVostfrButton) {
         toggleVersionButton.style.display = 'none';
       } else {
-        toggleVersionButton.style.display = 'block';
+        toggleVersionButton.style.display = 'inline-block';
       }
-      
-      // Charger le lecteur vidéo
       loadPlayer();
     }
 
-    // Événement changement de série
     serieSelect.addEventListener('change', () => {
       currentSerie = serieSelect.value;
       loadSaisons();
       updateInterface();
     });
 
-    // Événement changement de saison
     saisonSelect.addEventListener('change', () => {
       currentSaison = saisonSelect.value;
       loadEpisodes();
       updateInterface();
     });
 
-    // Événement changement épisode
     episodeSelect.addEventListener('change', () => {
       currentEpisode = episodeSelect.value;
       loadPlayer();
     });
 
-    // Événement changement langue
     toggleVersionButton.addEventListener('click', () => {
       currentLanguage = currentLanguage === 'VF' ? 'VOSTFR' : 'VF';
       toggleVersionButton.textContent = currentLanguage === 'VF' ? 'Changer en VOSTFR' : 'Changer en VF';
       loadPlayer();
     });
 
-    // Initialisation
     window.addEventListener('DOMContentLoaded', () => {
       loadSaisons();
       updateInterface();
@@ -492,5 +406,4 @@
     });
   </script>
 </body>
-
 </html>
