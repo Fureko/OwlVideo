@@ -3,12 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hazbin & Helluva Streaming</title>
-  <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#d4b483">
-
+  <title>Voxflix</title>
+  
   <!-- Polices -->
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+  <!-- Manifest PWA -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#44ffff">
 
   <style>
     body {
@@ -25,16 +26,17 @@
     header {
       text-align: center;
       padding: 20px;
-      background: linear-gradient(to right, #1a0006, #33000f);
-      border-bottom: 1px solid #4a1c1c;
+      background: linear-gradient(to right, #001a1a, #003333);
+      border-bottom: 1px solid #44ffff44;
     }
 
     header h1 {
       font-family: 'Cinzel', serif;
       font-size: 2rem;
-      color: #d4b483;
+      color: #44ffff;
       letter-spacing: 2px;
       margin: 0;
+      text-shadow: 0 0 12px #44ffffaa;
     }
 
     .container {
@@ -46,15 +48,15 @@
     }
 
     .content-box {
-      background: rgba(20, 20, 20, 0.9);
-      border: 1px solid #4a1c1c;
+      background: rgba(15, 15, 15, 0.9);
+      border: 1px solid #44ffff55;
       border-radius: 10px;
       padding: 30px;
       max-width: 850px;
       width: 100%;
       text-align: center;
-      box-shadow: 0 0 20px rgba(255, 0, 50, 0.2);
-      animation: fadein 1.5s ease;
+      box-shadow: 0 0 25px #44ffff33;
+      animation: fadein 1.2s ease;
     }
 
     @keyframes fadein {
@@ -62,13 +64,14 @@
       to   { opacity: 1; transform: translateY(0); }
     }
 
-.logo {
-  display: block;
-  margin: 0 auto 25px;
-  max-width: 300px;   /* taille maximale sur desktop */
-  width: 100%;        /* prend toute la largeur dispo */
-  height: auto;       /* garde les proportions */
-}
+    .logo {
+      display: block;
+      margin: 0 auto 25px;
+      max-width: 280px;
+      width: 100%;
+      height: auto;
+      filter: drop-shadow(0 0 12px #44ffffaa);
+    }
 
     .controls {
       margin-bottom: 20px;
@@ -79,9 +82,9 @@
     }
 
     select, button {
-      background: #1a0006;
-      color: #d4b483;
-      border: 1px solid #4a1c1c;
+      background: #001a1a;
+      color: #44ffff;
+      border: 1px solid #44ffff55;
       padding: 10px 16px;
       font-size: 15px;
       border-radius: 6px;
@@ -91,26 +94,47 @@
     }
 
     select:hover, button:hover {
-      background: #33000f;
-      border-color: #d4b483;
+      background: #003333;
+      border-color: #44ffff;
       color: #fff;
+      box-shadow: 0 0 12px #44ffff88;
     }
 
     #video-target {
       margin-top: 20px;
     }
 
+    #installBtn {
+      margin-top: 20px;
+      background:#44ffff;
+      color:#000;
+      border:none;
+      padding:12px 22px;
+      border-radius:10px;
+      cursor:pointer;
+      font-size:16px;
+      font-weight:bold;
+      box-shadow:0 0 12px #44ffff88;
+      transition:0.3s;
+      display:none;
+    }
+
+    #installBtn:hover {
+      box-shadow:0 0 20px #44ffffcc;
+      transform:scale(1.05);
+    }
+
     footer {
       text-align: center;
       padding: 15px;
-      background: #1a0006;
+      background: #001a1a;
       font-size: 13px;
-      border-top: 1px solid #4a1c1c;
+      border-top: 1px solid #44ffff44;
     }
 
     footer p {
       margin: 0;
-      color: #8a6f6f;
+      color: #88aaaa;
     }
 
     @media (max-width: 768px) {
@@ -123,7 +147,7 @@
 
 <body>
   <header>
-    <h1>Hazbin Hotel & Helluva Boss</h1>
+    <h1>Voxflix</h1>
   </header>
 
   <div class="container">
@@ -141,8 +165,12 @@
       </div>
 
       <div id="video-target"></div>
+
+      <!-- Bouton PWA -->
+      <button id="installBtn">Installer Voxflix</button>
     </div>
   </div>
+
   <script>
     // Données combinées pour toutes les séries et saisons
     const videos = {
@@ -314,7 +342,7 @@
       }
     };
 
-  let currentSerie = 'hazbin';
+ let currentSerie = 'hazbin';
     let currentSaison = '1';
     let currentLanguage = 'VF';
     let currentEpisode = '1';
@@ -332,7 +360,7 @@
 
       const src = episode[currentLanguage];
       if (!src) {
-        videoTarget.innerHTML = `<p style="color:#d4b483;text-align:center">Vidéo non disponible en ${currentLanguage}.</p>`;
+        videoTarget.innerHTML = `<p style="color:#44ffff;text-align:center">Vidéo non disponible en ${currentLanguage}.</p>`;
         return;
       }
 
@@ -407,11 +435,33 @@
       toggleVersionButton.textContent = 'Changer en VOSTFR';
     });
 
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("service-worker.js")
-    .then(() => console.log("Service Worker installé pour OwlVideo"));
-}
+    /* -------------------------
+       Gestion PWA (install bouton)
+    ------------------------- */
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("service-worker.js")
+        .then(() => console.log("Service Worker installé pour Voxflix"));
+    }
 
+    let deferredPrompt;
+    const installBtn = document.getElementById("installBtn");
+
+    window.addEventListener("beforeinstallprompt", (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      installBtn.style.display = "inline-block";
+
+      installBtn.addEventListener("click", () => {
+        installBtn.style.display = "none";
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then((choice) => {
+          if (choice.outcome === "accepted") {
+            console.log("PWA installée !");
+          }
+          deferredPrompt = null;
+        });
+      });
+    });
   </script>
 </body>
 </html>

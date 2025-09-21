@@ -1,11 +1,11 @@
 {
-  "name": "OwlVideo",
-  "short_name": "OwlVideo",
+  "name": "Voxflix",
+  "short_name": "Voxflix",
   "description": "Plateforme de streaming Hazbin Hotel & Helluva Boss",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#0a0a0a",
-  "theme_color": "#d4b483",
+  "theme_color": "#44ffff",
   "orientation": "portrait",
   "icons": [
     {
